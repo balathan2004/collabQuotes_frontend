@@ -1,0 +1,39 @@
+.container {
+margin: 2rem 2rem 0 2rem;
+}
+
+.container header h1 {
+  font-size: 26px;
+  text-align: center;
+}
+
+.container header span{
+    font-size: 20px;
+    line-height: 40px;
+
+}
+
+.container header  p{
+    font-size: 20px;
+    line-height: 30px;
+}
+
+
+.container article{
+   margin-top: 4rem; 
+}
+
+.container article ul{
+    padding-left: 0;
+}
+
+.container article ul > li{
+ list-style: none;
+ line-height: 50px;
+ font-size: 18px;
+}
+
+.container article p{
+    margin-top: 2rem;
+    font-size: 20px;
+}

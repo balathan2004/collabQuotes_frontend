@@ -1,0 +1,12 @@
+.root_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.main_container{
+    flex: 1;
+    margin-top: 70px;
+    min-height:calc(100vh - 80px);
+}

@@ -1,0 +1,45 @@
+.container {
+  display: flex;
+  min-width: 400px;
+  width: 600px;
+  flex-direction: column;
+  margin: 1rem;
+}
+
+.container form > * {
+  margin: 1rem 0;
+}
+
+.container p {
+  font-size: 28px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.container a {
+  display: block;
+  text-align: center;
+}
+
+.container .input {
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.container button {
+  display: block;
+  text-transform: capitalize;
+  width: 100%;
+  height: 50px;
+  font-size: 18px;
+}
+
+
+@media(max-width:600px){
+    .container{
+        min-width: 90%;
+    
+     
+    }
+  
+}

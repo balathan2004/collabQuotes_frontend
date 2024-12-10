@@ -1,0 +1,57 @@
+.container {
+  margin: 2rem 2rem 0 2rem;
+  font-size: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+.container main{
+    flex: 1;
+}
+
+
+
+.container header h1 {
+  text-align: center;
+}
+
+.container header p {
+  font-size: 18px;
+}
+
+.container article {
+  margin-top: 2rem;
+}
+
+.container article h2 {
+}
+
+.container article ul {
+  padding: 0;
+}
+
+.container article li {
+  list-style: none;
+
+  line-height: 35px;
+}
+
+.container .second_container {
+  margin-top: 1rem;
+}
+
+.container .second_container p {
+}
+
+.container .second_container a {
+  margin: 1rem;
+}
+
+.container footer {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.container footer p {
+  text-align: center;
+}
