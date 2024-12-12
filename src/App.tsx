@@ -9,9 +9,10 @@ import NavbarHolder from "@components/context/navbar_context";
 import UserContextHolder from "@components/context/user_context";
 import PageNotFound from "@components/pages/not_found";
 import ReplyHolder from "@components/context/reply_context";
-import Profile from "@components/pages/profile";
+import Account from "@components/pages/account";
 import About from "@components/pages/about";
 import Home from "@components/pages/home";
+import Profile from "@components/pages/profile"
 import LoadingHolder from "@components/context/loading_context";
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
                     <Route path="/blog" element={<Blog />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/tweet" element={<Tweet />} />
+                    <Route path="/account" element={<Account />} />
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/auth/login" element={<Login />} />
                     <Route path="/auth/register" element={<SignUp />} />

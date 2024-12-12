@@ -1,12 +1,15 @@
 import React, { FC, useState } from "react";
 import { Button, TextField } from "@mui/material";
-import styles from "@styles/tweet_blog.module.css";
+import styles from "@styles/tweet.module.css";
 import SendData from "@components/utils/sendData";
+import { useUserContext } from "@components/context/user_context";
 const url = import.meta.env.VITE_DEST_URL;
 const Tweet: FC = () => {
   const [quote, setQuote] = useState("");
   const [author, setAuthor] = useState("");
   const [message, setMessage] = useState("");
+  const {userCred}=useUserContext()
+  
 
   const handleInput = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -23,8 +26,8 @@ const Tweet: FC = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (quote) {
-      const data = { quote: quote, author: author ? author : "unknown" };
+    if (quote && userCred) {
+      const data = { quote: quote, author: author ? author : "unknown",username:userCred.username };
       const response = await SendData({
         route: `${url}/posts/create_tweet`,
         data: data,

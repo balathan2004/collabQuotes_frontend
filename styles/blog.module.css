@@ -1,0 +1,68 @@
+.container {
+  width: 80vw;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container .input {
+  display: block;
+  margin: 1rem 0;
+}
+
+.container .input label {
+  font-size: 1rem;
+}
+
+.container button {
+  width: 100%;
+  height: 45px;
+}
+
+.quote_list {
+  width: 100%;
+  max-width: 500px;
+  margin-top: 5rem;
+}
+
+.quote_list p {
+  font-size: 20px;
+  line-height: 40px;
+}
+
+.quote_list .content{
+  border-bottom: 0.5px solid rgb(133, 132, 132);
+  padding-bottom: 0.5rem;
+}
+
+
+.quote_list .content span {
+  display: block;
+  font-size: 16px;
+  text-align: end;
+  font-weight: 600;
+  line-height: 40px;
+}
+
+.quote_list .content span::before {
+  content: "-";
+}
+
+.quote_list .top {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.quote_list .top img {
+  height: 75px;
+  border-radius: 50%;
+
+}
+
+.quote_list .footer span{
+  display: block;
+  padding-top: 0.5rem;
+  font-size: 16px;
+}

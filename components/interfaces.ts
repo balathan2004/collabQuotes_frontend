@@ -14,6 +14,7 @@ export interface QuoteInterface {
   userId: string;
   quoteId: string;
   createdAt: number;
+  username:string
 }
 
 export interface UserDataInterface{

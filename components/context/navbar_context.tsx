@@ -10,7 +10,7 @@ export const NavUsers = [
   { name: "Blog", path: "blog" },
   { name: "Tweet", path: "/tweet" },
   { name: "About", path: "/about" },
-  { name: "Account", path: "/profile" },
+  { name: "Account", path: "/account" },
 ];
 interface NavItem {
   name: string;

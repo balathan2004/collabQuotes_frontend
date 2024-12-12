@@ -1,18 +1,36 @@
 import React, { FC } from "react";
 import { QuoteInterface } from "../interfaces";
-import styles from "@styles/tweet_blog.module.css"
+import styles from "@styles/blog.module.css";
+import moment from "moment";
 
 interface Props {
   data: QuoteInterface;
+  image? :string|false
 }
 
-const QuoteList: FC<Props> = ({ data }) => {
+const QuoteList: FC<Props> = ({ data,image=false }) => {
+
+  const timeHandler=(date:number)=>{
+    return moment(new Date(date)).fromNow()
+  }
+
+
   return (
-    <div className={styles.quote_list}>
-      <p>{data.quote}</p>
-      <span>{data.author}</span>
-    </div>
+    <article className={styles.quote_list}>
+      <div className={styles.top}>
+        <img src={!image?"./images.png":image}></img>
+        <a href={`/profile?userId=${data.userId}`}>{data.username}</a>
+      </div>
+      <div className={styles.content}>
+        <p>{data.quote}</p>
+        <span>{data.author}</span>
+      </div>
+ 
+      <div className={styles.footer}>
+        <span>Created  {timeHandler(data.createdAt)}</span>
+      </div>
+    </article>
   );
 };
 
-export default QuoteList
+export default QuoteList;

@@ -1,7 +1,7 @@
 import React, { useContext, useState, FC, ReactNode } from "react";
-import { User } from "@supabase/supabase-js";
+import { UserDataInterface } from "@components/interfaces";
 
-type UserCredProps = User | null;
+type UserCredProps = UserDataInterface | null;
 
 export interface UserContextType {
   userCred: UserCredProps;
