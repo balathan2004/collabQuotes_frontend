@@ -1,25 +1,50 @@
 .container {
-  width: 80vw;
+
   margin: auto;
+  margin-top: 1rem;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
+}
+
+
+.container main{
+  margin-top:2rem;
 }
 
 .user_card {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  padding: 1rem;
+  border-bottom: 0.5px solid gray;
 }
 
 .user_card .left img {
-  height: 75px;
+  height: 100px;
 }
 
 .user_card .right span {
-  font-size: 20px;
+  font-size: 18px;
+  line-height: 40px;
+  display: block;
+
 }
 
-.user_card .right span::before {
+.user_card .right .username{
+  text-decoration: none;
+  color: inherit;
+}
+
+
+.user_card .right .username::before {
   content: "@";
+}
+
+
+@media (max-width: 768px) {
+  .container{
+    width: 90%;
+  }
 }

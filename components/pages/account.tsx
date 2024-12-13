@@ -36,14 +36,15 @@ const Account = () => {
     <div className="main_container">
       <div className={styles.container}>
         {profileUserData && profilePosts ? (
-          <>
+          <div>
+          <h1>Your Profile</h1>
             <UserCard data={profileUserData} />
 
-            <h1>Quotes</h1>
+            <h1>Quotes By User</h1>
             {profilePosts?.map((item) => (
               <QuoteList key={item.quoteId} data={item} image={profileUserData.profile_url} />
             ))}
-          </>
+          </div>
         ) : null}
       </div>
     </div>

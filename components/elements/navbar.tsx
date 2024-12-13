@@ -28,7 +28,7 @@ function DrawerAppBar() {
   };
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
+    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}className="navbar">
       <Typography variant="h6" sx={{ my: 2 }}>
         <Link to="/">CollabQuotes</Link>
       </Typography>
@@ -48,7 +48,7 @@ function DrawerAppBar() {
   );
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex" }} className="navbar">
       <CssBaseline />
       <AppBar component="nav">
         <Toolbar>

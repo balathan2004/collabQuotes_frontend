@@ -1,5 +1,5 @@
 .container {
-  width: 80vw;
+
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -23,11 +23,22 @@
 .quote_list {
   width: 100%;
   max-width: 500px;
-  margin-top: 5rem;
+  margin-bottom: 5rem;
+}
+
+.quote_list a{
+  text-decoration: none;
+  color: inherit;
+  font-size: 18px;
+
+}
+
+.quote_list a::before{
+  content: "@";
 }
 
 .quote_list p {
-  font-size: 20px;
+  font-size: clamp(14px, 18px,20px);
   line-height: 40px;
 }
 
@@ -65,4 +76,11 @@
   display: block;
   padding-top: 0.5rem;
   font-size: 16px;
+}
+
+
+@media (max-width: 768px) {
+  .container{
+    width: 90%;
+  }
 }

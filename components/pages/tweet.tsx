@@ -4,11 +4,13 @@ import styles from "@styles/tweet.module.css";
 import SendData from "@components/utils/sendData";
 import { useUserContext } from "@components/context/user_context";
 const url = import.meta.env.VITE_DEST_URL;
+import { useNavigate } from "react-router-dom";
 const Tweet: FC = () => {
   const [quote, setQuote] = useState("");
   const [author, setAuthor] = useState("");
   const [message, setMessage] = useState("");
   const {userCred}=useUserContext()
+  const router=useNavigate()
   
 
   const handleInput = (
@@ -28,12 +30,14 @@ const Tweet: FC = () => {
 
     if (quote && userCred) {
       const data = { quote: quote, author: author ? author : "unknown",username:userCred.username };
+     console.log(data)
       const response = await SendData({
         route: `${url}/posts/create_tweet`,
         data: data,
       });
       if (response) {
         setMessage(response.message);
+        router('/blog')
       } else {
         setMessage("Error Caught");
       }

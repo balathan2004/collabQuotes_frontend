@@ -20,7 +20,7 @@ const LoadingHolder: FC<Props> = ({ children }) => {
 
   return (
     <LoadingContext.Provider value={{ isLoading, setIsLoading }}>
-      {isLoading ? <CircularProgress /> : null}
+      {isLoading ? <CircularProgress className="loader" /> : null}
       {children}
     </LoadingContext.Provider>
   );

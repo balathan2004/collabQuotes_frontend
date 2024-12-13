@@ -14,26 +14,26 @@ export interface QuoteInterface {
   userId: string;
   quoteId: string;
   createdAt: number;
-  username:string
+  username: string;
 }
 
-export interface UserDataInterface{
+export interface UserDataInterface {
+  userId: string;
+  username: string;
+  email: string;
+  createdAt: number;
+  profile_url: string;
+}
 
-  userId:string,
-  username:string,
-  email:string,
-  createdAt:number,
-  profile_url:string
-  }
-  
+export interface QuotesInterfaceWithProfile extends QuoteInterface {
+  profile_url: string;
+}
 
 export interface PostResponseConfig extends ResponseConfig {
-  quotes: QuoteInterface[] | null;
+  quotes: QuotesInterfaceWithProfile[]| null;
 }
 
-export interface ProfileResponseCofig extends ResponseConfig{
-
-  userData:UserDataInterface |null,
-  userPosts:QuoteInterface[]|[]
-
+export interface ProfileResponseCofig extends ResponseConfig {
+  userData: UserDataInterface | null;
+  userPosts: QuoteInterface[] | [];
 }

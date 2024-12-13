@@ -32,7 +32,7 @@ const ContextWrapper: FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <>
       <ReplyPopUp />
-      <DrawerAppBar />
+      <DrawerAppBar  />
       {children}
     </>
   );

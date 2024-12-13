@@ -14,6 +14,7 @@ import About from "@components/pages/about";
 import Home from "@components/pages/home";
 import Profile from "@components/pages/profile"
 import LoadingHolder from "@components/context/loading_context";
+import AdminBlukTweet from "@components/pages/admin"
 function App() {
   return (
     <div className="container-fluid pt-5 root_container">
@@ -32,6 +33,7 @@ function App() {
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/auth/login" element={<Login />} />
                     <Route path="/auth/register" element={<SignUp />} />
+                    <Route path="/admin/light/secure" element={<AdminBlukTweet />} />
                     <Route path="*" element={<PageNotFound />} />
                   </Routes>
                 </ContextWrapper>
