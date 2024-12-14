@@ -4,6 +4,7 @@ import styles from "@styles/login.module.css";
 import LoginFetch from "@components/utils/loginFetch";
 import { useUserContext } from "@components/context/user_context";
 import { useNavigate } from "react-router-dom";
+import { useReplyContext } from "@components/context/reply_context";
 interface UserProps {
   email: string;
   password: string;
@@ -17,6 +18,7 @@ const Login = () => {
   });
   const { setUserCred } = useUserContext();
   const {setDirs}=useNavbarContext()
+  const { setReply } = useReplyContext();
  
   const router=useNavigate()
 
@@ -41,6 +43,7 @@ const Login = () => {
           setDirs(NavUsers)
           router('/blog')
         }
+        setReply(response.message)
       }
     }
   };
