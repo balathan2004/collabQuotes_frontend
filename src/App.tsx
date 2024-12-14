@@ -15,6 +15,7 @@ import Home from "@components/pages/home";
 import Profile from "@components/pages/profile"
 import LoadingHolder from "@components/context/loading_context";
 import AdminBlukTweet from "@components/pages/admin"
+import TestPage from "@components/pages/text"
 function App() {
   return (
     <div className="container-fluid pt-5 root_container">
@@ -26,6 +27,7 @@ function App() {
                 <ContextWrapper>
                   <Routes>
                     <Route path="/" element={<Home />} />
+                    <Route path="/test" element={<TestPage />} />
                     <Route path="/blog" element={<Blog />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/tweet" element={<Tweet />} />

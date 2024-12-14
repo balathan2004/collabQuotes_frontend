@@ -10,12 +10,12 @@ export default async function LoginFetch({
 }: Props): Promise<AuthResponseConfig | undefined> {
   try {
     const reqConfig: RequestInit = {
-      body: JSON.stringify(data),
+      method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
-      method: "POST",
-      credentials: "include",
+      body: JSON.stringify(data),
     };
     const response = (await (
       await fetch(route, reqConfig)
