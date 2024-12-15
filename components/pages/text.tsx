@@ -10,6 +10,9 @@ const TestPage: FC = () => {
         const response = await fetch(`${url}/hello`, {
           method: "GET",
           credentials: "include",
+          headers:{
+            "Content-Type": "application/json",
+          }
         });
 
         if (!response.ok) {
