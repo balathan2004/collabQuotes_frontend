@@ -5,6 +5,7 @@ import LoginFetch from "@components/utils/loginFetch";
 import { useUserContext } from "@components/context/user_context";
 import { useNavigate } from "react-router-dom";
 import { useReplyContext } from "@components/context/reply_context";
+import { useLoadingContext } from "@components/context/loading_context";
 interface UserProps {
   email: string;
   password: string;
@@ -19,6 +20,7 @@ const Login = () => {
   const { setUserCred } = useUserContext();
   const {setDirs}=useNavbarContext()
   const { setReply } = useReplyContext();
+  const {setIsLoading} = useLoadingContext()
  
   const router=useNavigate()
 
@@ -33,11 +35,13 @@ const Login = () => {
     event.preventDefault();
 
     if (userData.email && userData.password) {
+      setIsLoading(true)
       const response = await LoginFetch({
         route: `${url}/auth/login`,
         data: userData,
       });
       if (response) {
+        setIsLoading(false)
         if (response.status == 200) {
           setUserCred(response.credentials);
           setDirs(NavUsers)

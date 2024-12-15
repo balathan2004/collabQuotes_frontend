@@ -2,7 +2,7 @@ import React, { FC, useState } from "react";
 import { TextField, Button, Link } from "@mui/material";
 import styles from "@styles/login.module.css";
 import SendData from "@components/utils/sendData";
-
+import { useLoadingContext } from "@components/context/loading_context";
 import { useReplyContext } from "@components/context/reply_context";
 import LoginFetch from "@components/utils/loginFetch";
 interface UserProps {
@@ -18,6 +18,7 @@ const SignUp = () => {
   const url = import.meta.env.VITE_DEST_URL;
 
   const { setReply } = useReplyContext();
+  const {setIsLoading} = useLoadingContext()
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -30,12 +31,14 @@ const SignUp = () => {
     event.preventDefault();
 
     if (userData.email && userData.password) {
+      setIsLoading(true)
       const response = await SendData({
         route: `${url}/auth/register`,
         data: userData,
       });
 
       if (response) {
+        setIsLoading(false)
         if (response.status == 200) {
           setReply("verification code sent to email");
         } else {

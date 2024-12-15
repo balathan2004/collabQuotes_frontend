@@ -5,12 +5,15 @@ import SendData from "@components/utils/sendData";
 import { useUserContext } from "@components/context/user_context";
 const url = import.meta.env.VITE_DEST_URL;
 import { useNavigate } from "react-router-dom";
+import { useLoadingContext } from "@components/context/loading_context";
+
 const Tweet: FC = () => {
   const [quote, setQuote] = useState("");
   const [author, setAuthor] = useState("");
   const [message, setMessage] = useState("");
   const {userCred}=useUserContext()
   const router=useNavigate()
+  const {setIsLoading} = useLoadingContext()
   
 
   const handleInput = (
@@ -29,6 +32,7 @@ const Tweet: FC = () => {
     event.preventDefault();
 
     if (quote && userCred) {
+      setIsLoading(true)
       const data = { quote: quote, author: author ? author : "unknown",username:userCred.username };
      console.log(data)
       const response = await SendData({
@@ -36,6 +40,7 @@ const Tweet: FC = () => {
         data: data,
       });
       if (response) {
+        setIsLoading(false)
         setMessage(response.message);
         router('/blog')
       } else {

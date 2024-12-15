@@ -1,4 +1,4 @@
-import React, { useContext, useState, FC, ReactNode } from "react";
+import React, { useContext, useState, FC, ReactNode, useEffect } from "react";
 import { CircularProgress } from "@mui/material";
 export interface LoadingContextType {
   isLoading: loadingType;
@@ -17,6 +17,19 @@ export type loadingType = boolean;
 
 const LoadingHolder: FC<Props> = ({ children }) => {
   const [isLoading, setIsLoading] = useState<loadingType>(false);
+
+
+  useEffect(() => {
+    if (isLoading) {
+      const timeoutId = setTimeout(() => {
+        setIsLoading(false);
+      }, 10000);
+  
+      // Cleanup the timeout if the component unmounts or `isLoading` changes
+      return () => clearTimeout(timeoutId);
+    }
+  }, [isLoading]);
+  
 
   return (
     <LoadingContext.Provider value={{ isLoading, setIsLoading }}>
