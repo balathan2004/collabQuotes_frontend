@@ -1,13 +1,13 @@
 import React, { useContext, useState, FC, ReactNode } from "react";
 
 export const NavInit = [
-  { name: "Blog", path: "blog" },
+  { name: "Blog", path: "/blog" },
   { name: "About", path: "/about" },
   { name: "Login", path: "/auth/login" },
   { name: "Signup", path: "/auth/register" },
 ];
 export const NavUsers = [
-  { name: "Blog", path: "blog" },
+  { name: "Blog", path: "/blog" },
   { name: "Tweet", path: "/tweet" },
   { name: "About", path: "/about" },
   { name: "Account", path: "/account" },

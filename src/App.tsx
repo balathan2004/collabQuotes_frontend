@@ -12,9 +12,10 @@ import ReplyHolder from "@components/context/reply_context";
 import Account from "@components/pages/account";
 import About from "@components/pages/about";
 import Home from "@components/pages/home";
-import Profile from "@components/pages/profile"
+import Profile from "@components/pages/profile";
 import LoadingHolder from "@components/context/loading_context";
-import AdminBlukTweet from "@components/pages/admin"
+import AdminBlukTweet from "@components/pages/admin";
+import AccountVerification from "@components/pages/verifyAccount";
 
 function App() {
   return (
@@ -32,9 +33,17 @@ function App() {
                     <Route path="/tweet" element={<Tweet />} />
                     <Route path="/account" element={<Account />} />
                     <Route path="/profile" element={<Profile />} />
+                    <Route
+                      path="/auth/verify"
+                      element={<AccountVerification />}
+                    />
+
                     <Route path="/auth/login" element={<Login />} />
                     <Route path="/auth/register" element={<SignUp />} />
-                    <Route path="/admin/light/secure" element={<AdminBlukTweet />} />
+                    <Route
+                      path="/admin/light/secure"
+                      element={<AdminBlukTweet />}
+                    />
                     <Route path="*" element={<PageNotFound />} />
                   </Routes>
                 </ContextWrapper>

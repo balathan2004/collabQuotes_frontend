@@ -1,6 +1,7 @@
 import React, { FC, useState } from "react";
-import { TextField, Button, Link } from "@mui/material";
+import { TextField, Button } from "@mui/material";
 import styles from "@styles/login.module.css";
+import { Link } from "react-router-dom";
 import SendData from "@components/utils/sendData";
 import { useLoadingContext } from "@components/context/loading_context";
 import { useReplyContext } from "@components/context/reply_context";
@@ -16,6 +17,7 @@ const SignUp = () => {
     password: "",
   });
   const url = import.meta.env.VITE_DEST_URL;
+  const [msg,setMsg]=useState("");
 
   const { setReply } = useReplyContext();
   const {setIsLoading} = useLoadingContext()
@@ -40,7 +42,7 @@ const SignUp = () => {
       if (response) {
         setIsLoading(false)
         if (response.status == 200) {
-          setReply("verification code sent to email");
+          setReply("verification code sent to email, verify email and login");
         } else {
           setReply(response.message);
         }
@@ -72,7 +74,8 @@ const SignUp = () => {
           variant="outlined"
           required
         />
-        <Link href="#">Forget Password ???</Link>
+    
+        <Link to="/auth/login">Login here</Link>
         <Button type="submit" variant="outlined">
           SignUp
         </Button>

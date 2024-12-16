@@ -1,5 +1,6 @@
 import React, { FC, useState } from "react";
-import { TextField, Button, Link } from "@mui/material";
+import { TextField, Button } from "@mui/material";
+import { Link } from "react-router-dom";
 import styles from "@styles/login.module.css";
 import LoginFetch from "@components/utils/loginFetch";
 import { useUserContext } from "@components/context/user_context";
@@ -21,6 +22,7 @@ const Login = () => {
   const {setDirs}=useNavbarContext()
   const { setReply } = useReplyContext();
   const {setIsLoading} = useLoadingContext()
+  const [msg,setMsg]=useState("");
  
   const router=useNavigate()
 
@@ -74,7 +76,8 @@ const Login = () => {
           variant="outlined"
           required
         />
-        <Link href="#">Forget Password ???</Link>
+        <Link to="#">Forget Password ???</Link>
+        <Link to="/auth/register">No Account , Register here</Link>
         <Button type="submit" variant="outlined">
           Login
         </Button>
