@@ -14,7 +14,7 @@ const AccountVerification = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch(`${url}/auth/verify/${userEmail}`, {
+      const response = await fetch(`${url}/auth/verify_account/${userEmail}`, {
         method: "GET",
         credentials: "include",
       });
