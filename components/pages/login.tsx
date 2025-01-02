@@ -11,7 +11,7 @@ interface UserProps {
   email: string;
   password: string;
 }
-import { useNavbarContext,NavUsers } from "@components/context/navbar_context";
+import { useNavbarContext, NavUsers } from "@components/context/navbar_context";
 const url = import.meta.env.VITE_DEST_URL;
 const Login = () => {
   const [userData, setUserData] = useState<UserProps>({
@@ -19,12 +19,11 @@ const Login = () => {
     password: "",
   });
   const { setUserCred } = useUserContext();
-  const {setDirs}=useNavbarContext()
+  const { setDirs } = useNavbarContext();
   const { setReply } = useReplyContext();
-  const {setIsLoading} = useLoadingContext()
-  const [msg,setMsg]=useState("");
- 
-  const router=useNavigate()
+  const { setIsLoading } = useLoadingContext();
+
+  const router = useNavigate();
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -37,19 +36,19 @@ const Login = () => {
     event.preventDefault();
 
     if (userData.email && userData.password) {
-      setIsLoading(true)
+      setIsLoading(true);
       const response = await LoginFetch({
         route: `${url}/auth/login`,
         data: userData,
       });
       if (response) {
-        setIsLoading(false)
+        setIsLoading(false);
         if (response.status == 200) {
           setUserCred(response.credentials);
-          setDirs(NavUsers)
-          router('/blog')
+          setDirs(NavUsers);
+          router("/blog");
         }
-        setReply(response.message)
+        setReply(response.message);
       }
     }
   };
@@ -76,7 +75,7 @@ const Login = () => {
           variant="outlined"
           required
         />
-        <Link to="#">Forget Password ???</Link>
+        <Link to="/auth/reset-password">Forget Password?</Link>
         <Link to="/auth/register">No Account , Register here</Link>
         <Button type="submit" variant="outlined">
           Login

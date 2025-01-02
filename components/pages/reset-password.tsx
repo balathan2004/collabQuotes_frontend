@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { TextField, Button } from "@mui/material";
 import styles from "@styles/login.module.css";
 import { Link } from "react-router-dom";
@@ -10,41 +10,26 @@ interface UserProps {
   password: string;
 }
 
-const SignUp = () => {
-  const [userData, setUserData] = useState<UserProps>({
-    email: "",
-    password: "",
-  });
+const ResetPassword = () => {
+  const [email, setEmail] = useState("");
   const url = import.meta.env.VITE_DEST_URL;
-  const [msg,setMsg]=useState("");
 
   const { setReply } = useReplyContext();
-  const {setIsLoading} = useLoadingContext()
-
-  const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    if (name && value) {
-      setUserData((prev) => ({ ...prev, [name]: value }));
-    }
-  };
+  const { setIsLoading } = useLoadingContext();
 
   const submitForm = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (userData.email && userData.password) {
-      setIsLoading(true)
+    if (email) {
+      setIsLoading(true);
       const response = await SendData({
-        route: `${url}/auth/register`,
-        data: userData,
+        route: `${url}/auth/reset-password`,
+        data: { email },
       });
 
       if (response) {
-        setIsLoading(false)
-        if (response.status == 200) {
-          setReply("verification code sent to email, verify email and login");
-        } else {
-          setReply(response.message);
-        }
+        setIsLoading(false);
+        setReply(response.message);
       } else {
         setReply("error caught");
       }
@@ -53,10 +38,10 @@ const SignUp = () => {
 
   return (
     <div className={styles.container}>
-      <p>SignUp to Collab Quotes</p>
+      <p>Reset Password</p>
       <form onSubmit={submitForm}>
         <TextField
-          onChange={handleInput}
+          onChange={(event) => setEmail(event.target.value)}
           name="email"
           className={styles.input}
           id="outlined-basic"
@@ -64,23 +49,14 @@ const SignUp = () => {
           variant="outlined"
           required
         />
-        <TextField
-          onChange={handleInput}
-          name="password"
-          className={styles.input}
-          id="outlined-basic"
-          label="Your Password"
-          variant="outlined"
-          required
-        />
-    
+
         <Link to="/auth/login">Login here</Link>
         <Button type="submit" variant="outlined">
-          SignUp
+          Submit
         </Button>
       </form>
     </div>
   );
 };
 
-export default SignUp;
+export default ResetPassword;

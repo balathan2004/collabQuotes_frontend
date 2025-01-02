@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TextField, Button } from "@mui/material";
 import styles from "@styles/login.module.css";
 import { Link } from "react-router-dom";
@@ -10,53 +10,59 @@ interface UserProps {
   password: string;
 }
 
-const SignUp = () => {
-  const [userData, setUserData] = useState<UserProps>({
-    email: "",
-    password: "",
-  });
+const ChangePassword = () => {
+  const [password, setPassword] = useState("");
+  const [confirmPass, setConfirmpass] = useState("");
+  const [email,setEmail]=useState("")
+
+  const [accessToken, setAccessToken] = useState("");
   const url = import.meta.env.VITE_DEST_URL;
-  const [msg,setMsg]=useState("");
 
   const { setReply } = useReplyContext();
-  const {setIsLoading} = useLoadingContext()
-
-  const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    if (name && value) {
-      setUserData((prev) => ({ ...prev, [name]: value }));
-    }
-  };
+  const { setIsLoading } = useLoadingContext();
 
   const submitForm = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (userData.email && userData.password) {
-      setIsLoading(true)
+    if (accessToken && password && confirmPass == password) {
+      setIsLoading(true);
       const response = await SendData({
-        route: `${url}/auth/register`,
-        data: userData,
+        route: `${url}/auth/change-password`,
+        data: { accessToken, password },
       });
 
       if (response) {
-        setIsLoading(false)
-        if (response.status == 200) {
-          setReply("verification code sent to email, verify email and login");
-        } else {
-          setReply(response.message);
-        }
+        setIsLoading(false);
+        setReply(response.message);
       } else {
         setReply("error caught");
       }
+    } else {
+      console.log("field missing");
     }
   };
 
+  useEffect(() => {
+    const hash = window.location.hash;
+    const params = new URLSearchParams(hash.replace("#", ""));
+    const accessTkn = params.get("access_token");
+    const email=params.get('email')
+
+    if (!accessTkn || !email) {
+      setReply("Invalid or missing access token.");
+    } else {
+      setAccessToken(accessTkn);
+      setEmail(email)
+    }
+  }, []);
+
   return (
     <div className={styles.container}>
-      <p>SignUp to Collab Quotes</p>
+      <p>Reset Password</p>
+      <p>for {email}</p>
       <form onSubmit={submitForm}>
         <TextField
-          onChange={handleInput}
+          onChange={(event) => setPassword(event.target.value)}
           name="email"
           className={styles.input}
           id="outlined-basic"
@@ -65,22 +71,22 @@ const SignUp = () => {
           required
         />
         <TextField
-          onChange={handleInput}
-          name="password"
+          onChange={(event) => setConfirmpass(event.target.value)}
+          name="email"
           className={styles.input}
           id="outlined-basic"
-          label="Your Password"
+          label="Your Email"
           variant="outlined"
           required
         />
-    
+
         <Link to="/auth/login">Login here</Link>
         <Button type="submit" variant="outlined">
-          SignUp
+          Submit
         </Button>
       </form>
     </div>
   );
 };
 
-export default SignUp;
+export default ChangePassword;

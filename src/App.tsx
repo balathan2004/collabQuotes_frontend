@@ -16,7 +16,8 @@ import Profile from "@components/pages/profile";
 import LoadingHolder from "@components/context/loading_context";
 import AdminBlukTweet from "@components/pages/admin";
 import AccountVerification from "@components/pages/verifyAccount";
-
+import ResetPassword from "@components/pages/reset-password";
+import ChangePassword from "@components/pages/change_password";
 function App() {
   return (
     <div className="container-fluid pt-5 root_container">
@@ -36,6 +37,16 @@ function App() {
                     <Route
                       path="/auth/verify"
                       element={<AccountVerification />}
+                    />
+
+                    <Route
+                      path="/auth/reset-password"
+                      element={<ResetPassword />}
+                    />
+
+                    <Route
+                      path="/auth/change-password"
+                      element={<ChangePassword />}
                     />
 
                     <Route path="/auth/login" element={<Login />} />

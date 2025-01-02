@@ -19,6 +19,8 @@
 .container a {
   display: block;
   text-align: center;
+  text-decoration: none;
+  color: #000;
 }
 
 .container .input {
@@ -34,12 +36,8 @@
   font-size: 18px;
 }
 
-
-@media(max-width:600px){
-    .container{
-        min-width: 90%;
-    
-     
-    }
-  
+@media (max-width: 600px) {
+  .container {
+    min-width: 90%;
+  }
 }
