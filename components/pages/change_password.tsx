@@ -38,6 +38,7 @@ const ChangePassword = () => {
         setReply("error caught");
       }
     } else {
+      console.log(accessToken,password,confirmPass)
       console.log("field missing");
     }
   };
