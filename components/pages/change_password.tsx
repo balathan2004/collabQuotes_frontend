@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import SendData from "@components/utils/sendData";
 import { useLoadingContext } from "@components/context/loading_context";
 import { useReplyContext } from "@components/context/reply_context";
+import { useNavigate } from "react-router-dom";
 interface UserProps {
   email: string;
   password: string;
@@ -14,6 +15,7 @@ const ChangePassword = () => {
   const [password, setPassword] = useState("");
   const [confirmPass, setConfirmpass] = useState("");
   const [email, setEmail] = useState("");
+  const router = useNavigate();
 
   const [accessToken, setAccessToken] = useState("");
   const url = import.meta.env.VITE_DEST_URL;
@@ -34,6 +36,9 @@ const ChangePassword = () => {
       if (response) {
         setIsLoading(false);
         setReply(response.message);
+        if (response.status == 200) {
+          router("/auth/login");
+        }
       } else {
         setReply("error caught");
       }
