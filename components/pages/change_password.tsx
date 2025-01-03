@@ -13,7 +13,7 @@ interface UserProps {
 const ChangePassword = () => {
   const [password, setPassword] = useState("");
   const [confirmPass, setConfirmpass] = useState("");
-  const [email,setEmail]=useState("")
+  const [email, setEmail] = useState("");
 
   const [accessToken, setAccessToken] = useState("");
   const url = import.meta.env.VITE_DEST_URL;
@@ -38,22 +38,27 @@ const ChangePassword = () => {
         setReply("error caught");
       }
     } else {
-      console.log(accessToken,password,confirmPass)
+      console.log(accessToken, password, confirmPass);
       console.log("field missing");
     }
   };
 
   useEffect(() => {
-    const hash = window.location.hash;
-    const params = new URLSearchParams(hash.replace("#", ""));
-    const accessTkn = params.get("access_token");
-    const email=params.get('email')
+    const queryParams = new URLSearchParams(window.location.search);
+    const email = queryParams.get("email");
+
+    // Parse fragment (hash)
+    const hashParams = new URLSearchParams(
+      window.location.hash.replace("#", "")
+    );
+    const accessTkn = hashParams.get("access_token");
+    console.log(accessTkn, email);
 
     if (!accessTkn || !email) {
       setReply("Invalid or missing access token.");
     } else {
       setAccessToken(accessTkn);
-      setEmail(email)
+      setEmail(email);
     }
   }, []);
 
@@ -64,19 +69,19 @@ const ChangePassword = () => {
       <form onSubmit={submitForm}>
         <TextField
           onChange={(event) => setPassword(event.target.value)}
-          name="email"
+          name="password"
           className={styles.input}
           id="outlined-basic"
-          label="Your Email"
+          label="New Password"
           variant="outlined"
           required
         />
         <TextField
           onChange={(event) => setConfirmpass(event.target.value)}
-          name="email"
+          name="confirm-password"
           className={styles.input}
           id="outlined-basic"
-          label="Your Email"
+          label="Confirm Password"
           variant="outlined"
           required
         />
