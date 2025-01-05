@@ -18,6 +18,9 @@ import AdminBlukTweet from "@components/pages/admin";
 import AccountVerification from "@components/pages/verifyAccount";
 import ResetPassword from "@components/pages/reset-password";
 import ChangePassword from "@components/pages/change_password";
+import RequestVerification from "@components/pages/request_verification"
+
+
 function App() {
   return (
     <div className="container-fluid pt-5 root_container">
@@ -47,6 +50,11 @@ function App() {
                     <Route
                       path="/auth/change-password"
                       element={<ChangePassword />}
+                    />
+
+                     <Route
+                      path="/auth/request-verification"
+                      element={<RequestVerification />}
                     />
 
                     <Route path="/auth/login" element={<Login />} />

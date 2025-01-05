@@ -6,8 +6,7 @@ import SendData from "@components/utils/sendData";
 import { useLoadingContext } from "@components/context/loading_context";
 import { useReplyContext } from "@components/context/reply_context";
 import { useNavigate } from "react-router-dom";
-
-const ResetPassword = () => {
+const RequestVerification = () => {
   const [email, setEmail] = useState("");
   const url = import.meta.env.VITE_DEST_URL;
   const router = useNavigate();
@@ -20,7 +19,7 @@ const ResetPassword = () => {
     if (email) {
       setIsLoading(true);
       const response = await SendData({
-        route: `${url}/auth/reset-password`,
+        route: `${url}/auth/request-verification`,
         data: { email },
       });
 
@@ -38,7 +37,7 @@ const ResetPassword = () => {
 
   return (
     <div className={styles.container}>
-      <p>Reset Password</p>
+      <p>Request Verification Email</p>
       <form onSubmit={submitForm}>
         <TextField
           onChange={(event) => setEmail(event.target.value)}
@@ -59,4 +58,4 @@ const ResetPassword = () => {
   );
 };
 
-export default ResetPassword;
+export default RequestVerification;

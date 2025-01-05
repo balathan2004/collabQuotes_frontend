@@ -3,12 +3,16 @@ import { TextField, Button } from "@mui/material";
 import styles from "@styles/login.module.css";
 import { Link } from "react-router-dom";
 import SendData from "@components/utils/sendData";
+import { useNavigate } from "react-router-dom";
 import { useLoadingContext } from "@components/context/loading_context";
 import { useReplyContext } from "@components/context/reply_context";
 interface UserProps {
   email: string;
   password: string;
+  
 }
+
+
 
 const SignUp = () => {
   const [userData, setUserData] = useState<UserProps>({
@@ -16,7 +20,8 @@ const SignUp = () => {
     password: "",
   });
   const url = import.meta.env.VITE_DEST_URL;
-  const [msg,setMsg]=useState("");
+
+  const router=useNavigate()
 
   const { setReply } = useReplyContext();
   const {setIsLoading} = useLoadingContext()
@@ -41,7 +46,8 @@ const SignUp = () => {
       if (response) {
         setIsLoading(false)
         if (response.status == 200) {
-          setReply("verification code sent to email, verify email and login");
+          setReply(response.message);
+          router('/auth/login')
         } else {
           setReply(response.message);
         }
