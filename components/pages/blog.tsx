@@ -33,7 +33,7 @@ const Blog: FC = () => {
   const fetchMorePosts = async () => {
     try {
       const response = await fetch(
-        `${url}/posts/get_posts?page=${startFrom}&limit=5`,
+        `${url}/posts/get_posts?page=${startFrom}&limit=10`,
         { method: "GET" }
       );
 
