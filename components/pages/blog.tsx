@@ -42,18 +42,8 @@ const Blog: FC = () => {
         const { quotes } = data;
 
         if (quotes && quotes.length > 0) {
-          console.log(quotes, "render");
-
           // Filter out duplicates before updating state
-          setQuotesData((prevData) => {
-            const newQuotes = quotes.filter(
-              (quote) =>
-                !prevData.some(
-                  (existingQuote) => existingQuote.quoteId === quote.quoteId
-                )
-            );
-            return [...prevData, ...newQuotes];
-          });
+          setQuotesData((prevData) => [...prevData, ...quotes]);
 
           setStartFrom((prev) => prev + 1);
         } else {
@@ -103,7 +93,7 @@ const Blog: FC = () => {
           <div></div>
         </InfiniteScroll>
 
-        {!hasMorePosts ? <LoadingTextComponent /> : ""}
+        {hasMorePosts ? <LoadingTextComponent /> : ""}
       </div>
     </div>
   );
