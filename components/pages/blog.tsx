@@ -7,24 +7,30 @@ import QuoteList from "../elements/list";
 import styles from "@styles/blog.module.css";
 import InfiniteScroll from "react-infinite-scroller";
 import { useLoadingContext } from "@components/context/loading_context";
-import { useDebouncedCallback } from "use-debounce";
+import { debounce } from "lodash";
+
 import { CircularProgress } from "@mui/material";
 const url = import.meta.env.VITE_DEST_URL;
+
+function LoadingTextComponent() {
+  return (
+    <div className={styles.wrapper}>
+      <div className={styles.dot}></div>
+      <span className={styles.text}>Fetching Posts</span>
+    </div>
+  );
+}
 
 const Blog: FC = () => {
   const [quotesData, setQuotesData] = useState<QuotesInterfaceWithProfile[]>(
     []
   );
-  const { isLoading, setIsLoading } = useLoadingContext();
+  const [isLoading, setIsLoading] = useState(false);
   const [startFrom, setStartFrom] = useState(0);
   const [hasMorePosts, setHasMorePosts] = useState(true);
 
   // Fetch function for both initial load and scrolling
   const fetchMorePosts = async () => {
-    if (isLoading || !hasMorePosts) return;
-
-    setIsLoading(true);
-
     try {
       const response = await fetch(
         `${url}/posts/get_posts?page=${startFrom}&limit=5`,
@@ -59,9 +65,18 @@ const Blog: FC = () => {
       }
     } catch (error) {
       console.error("Error fetching more posts:", error);
-    } finally {
-      setIsLoading(false);
     }
+  };
+
+  const debouncedFunction = debounce(async () => {
+    await fetchMorePosts();
+    setIsLoading(false);
+  }, 1000);
+
+  const triggerMorePosts = async () => {
+    if (isLoading || !hasMorePosts) return; // Prevent multiple requests
+    setIsLoading(true); // Set loading as soon as debounce starts
+    debouncedFunction();
   };
 
   useEffect(() => {
@@ -75,7 +90,7 @@ const Blog: FC = () => {
 
         <InfiniteScroll
           pageStart={0}
-          loadMore={fetchMorePosts} // Use the debounced function for scrolling
+          loadMore={triggerMorePosts} // Use the debounced function for scrolling
           hasMore={hasMorePosts}
         >
           {quotesData?.map((item) => (
@@ -88,9 +103,7 @@ const Blog: FC = () => {
           <div></div>
         </InfiniteScroll>
 
-        <div>
-          <h1>Loading</h1>
-        </div>
+        {!hasMorePosts ? <LoadingTextComponent /> : ""}
       </div>
     </div>
   );

@@ -79,6 +79,42 @@
 }
 
 
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  transition: 2s ease;
+  cursor: progress;
+}
+.wrapper:hover {
+   transform: scale(1.2);
+}
+.text {
+  color: black;
+  font-weight: 600;
+  line-height: 50px;
+}
+.dot {
+  background: rgb(39, 34, 34);
+  height: 0.65em;
+  width: 0.65em;
+  border-radius: 50%;
+  animation: move 0.6s ease infinite;
+}
+@keyframes move {
+  0% {
+    transform: translateX(50%);
+  }
+  50% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(50%);
+  }
+}
+
+
 @media (max-width: 768px) {
   .container{
     width: 90%;
