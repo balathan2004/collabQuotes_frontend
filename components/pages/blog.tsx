@@ -42,8 +42,17 @@ const Blog: FC = () => {
         const { quotes } = data;
 
         if (quotes && quotes.length > 0) {
+
           // Filter out duplicates before updating state
-          setQuotesData((prevData) => [...prevData, ...quotes]);
+          setQuotesData((prevData) => {
+            const newQuotes = quotes.filter(
+              (quote) =>
+                !prevData.some(
+                  (existingQuote) => existingQuote.quoteId === quote.quoteId
+                )
+            );
+            return [...prevData, ...newQuotes];
+          });
 
           setStartFrom((prev) => prev + 1);
         } else {
