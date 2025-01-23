@@ -1,50 +1,23 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+# CollabQuotes Frontend
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Welcome to **CollabQuotes** — your one-stop destination to share inspiring quotes, connect with like-minded individuals, and build a growing library of wisdom. This app allows you to explore, share, and collaborate on meaningful quotes from a vibrant community.
 
-## Expanding the ESLint configuration
+## Why You'll Love CollabQuotes
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- 📝 **Share your original quotes** or your favorites from others.
+- 🌟 **Explore** a wide range of inspirational, funny, and thought-provoking quotes.
+- 🤝 **Collaborate** and engage with a vibrant community of thinkers.
+- 📚 **Create** your personal collection of favorite quotes.
 
-- Configure the top-level `parserOptions` property like this:
+## Technologies Used
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- **React** - A powerful JavaScript library for building user interfaces.
+- **TypeScript** - Adds static typing to JavaScript for better development experience and code quality.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Get Started Today
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+Whether you're here to share, explore, or simply be inspired, CollabQuotes has something for everyone. Let’s build a world of meaningful words together.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+[Visit CollabQuotes](https://collab-quotes.vercel.app/)  
