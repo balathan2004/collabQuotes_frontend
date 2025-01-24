@@ -10,32 +10,18 @@ const AccountVerification = () => {
   const [params] = useSearchParams();
 
   const userEmail = params.get("email");
-  const [isSuccess, setIsSuccess] = useState(false);
-
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetch(`${url}/auth/verify_account/${userEmail}`, {
-        method: "GET",
-        credentials: "include",
-      });
-      const res = (await response.json()) as ResponseConfig;
-      if (res && res.status == 200) {
-        setIsSuccess(true);
-      }
-    }
-    fetchData();
-  }, [userEmail]);
 
   return (
     <div className="main_container">
       <div className={styles.container}>
         {userEmail}
-        {isSuccess ? (
-          <>
-            <span>`${userEmail} your email is verified for collab quotes`</span>
-            <Button><Link to="/auth/login">Login Here</Link></Button>
-          </>
-        ) : null}
+
+        <>
+          <span>`${userEmail} your email is verified for collab quotes`</span>
+          <Button>
+            <Link to="/auth/login">Login Here</Link>
+          </Button>
+        </>
       </div>
     </div>
   );
