@@ -7,11 +7,11 @@ import DrawerAppBar from "@components/elements/navbar";
 const ContextWrapper: FC<{ children: ReactNode }> = ({ children }) => {
   const { setDirs } = useNavbarContext();
   const { setUserCred } = useUserContext();
+  
   const url = import.meta.env.VITE_DEST_URL;
 
   useEffect(() => {
     async function getCred() {
-      console.log("started");
       const response = await fetch(`${url}/auth/login_cred`, {
         method: "GET",
         credentials: "include",
@@ -32,7 +32,7 @@ const ContextWrapper: FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <>
       <ReplyPopUp />
-      <DrawerAppBar  />
+      <DrawerAppBar />
       {children}
     </>
   );

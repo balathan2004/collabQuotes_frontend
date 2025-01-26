@@ -6,15 +6,14 @@ import { useUserContext } from "@components/context/user_context";
 const url = import.meta.env.VITE_DEST_URL;
 import { useNavigate } from "react-router-dom";
 import { useLoadingContext } from "@components/context/loading_context";
-
+import { useReplyContext } from "@components/context/reply_context";
 const Tweet: FC = () => {
   const [quote, setQuote] = useState("");
   const [author, setAuthor] = useState("");
-  const [message, setMessage] = useState("");
-  const {userCred}=useUserContext()
-  const router=useNavigate()
-  const {setIsLoading} = useLoadingContext()
-  
+  const { setReply } = useReplyContext();
+  const { userCred } = useUserContext();
+  const router = useNavigate();
+  const { setIsLoading } = useLoadingContext();
 
   const handleInput = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -32,19 +31,25 @@ const Tweet: FC = () => {
     event.preventDefault();
 
     if (quote && userCred) {
-      setIsLoading(true)
-      const data = { quote: quote, author: author ? author : "unknown",username:userCred.username };
-     console.log(data)
+      setIsLoading(true);
+      const data = {
+        quote: quote,
+        author: author ? author : "unknown",
+        username: userCred.username,
+      };
       const response = await SendData({
         route: `${url}/posts/create_tweet`,
         data: data,
       });
       if (response) {
-        setIsLoading(false)
-        setMessage(response.message);
-        router('/blog')
+        console.log(response);
+        setIsLoading(false);
+        setReply(response.message);
+        if (response.status == 200) {
+          router("/blog");
+        }
       } else {
-        setMessage("Error Caught");
+        setReply("Error Caught");
       }
     }
   };
@@ -54,7 +59,7 @@ const Tweet: FC = () => {
       <div className={styles.container}>
         <form onSubmit={handleSubmit}>
           <h1>Share Your Quote</h1>
-          <p>{message}</p>
+
           <TextField
             onChange={handleInput}
             fullWidth
