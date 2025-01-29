@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "@styles/profile.module.css";
 import { UserDataInterface } from "../interfaces";
 import { QuoteInterface, ProfileResponseCofig } from "../interfaces";
-import QuoteList from "../elements/list";
+import AuthorQuoteList from "../elements/auth_list";
 import UserCard from "../elements/user_card";
 import { useLoadingContext } from "@components/context/loading_context";
 const Account = () => {
@@ -16,18 +16,23 @@ const Account = () => {
 
   useEffect(() => {
     async function fetchData() {
-      setIsLoading(true);
-      const response = await fetch(`${url}/profile/my_profile`, {
-        method: "GET",
-        credentials: "include",
-      });
-      const res = (await response.json()) as ProfileResponseCofig;
+      try {
+        setIsLoading(true);
+        const response = await fetch(`${url}/profile/my_profile`, {
+          method: "GET",
+          credentials: "include",
+        });
+        const res = (await response.json()) as ProfileResponseCofig;
 
-      if (res && res.status == 200 && res.userData) {
-        setProfilePosts(res.userPosts);
-        setProfileUserData(res.userData);
+        if (res && res.status == 200 && res.userData) {
+          setProfilePosts(res.userPosts);
+          setProfileUserData(res.userData);
+        }
+      } catch (err) {
+        console.error("Error fetching profile data:", err);
+      } finally {
+        setIsLoading(false);
       }
-      setIsLoading(false);
     }
     fetchData();
   }, []);
@@ -37,12 +42,18 @@ const Account = () => {
       <div className={styles.container}>
         {profileUserData && profilePosts ? (
           <div>
-          <h1>Your Profile</h1>
+            <h1>Your Profile</h1>
             <UserCard data={profileUserData} />
 
             <h1>Quotes By User</h1>
             {profilePosts?.map((item) => (
-              <QuoteList key={item.quoteId} data={item} image={profileUserData.profile_url} />
+              <AuthorQuoteList
+                key={item.quoteId}
+                data={item}
+                image={profileUserData.profile_url}
+                isUserId={profileUserData.userId}
+                filterData={setProfilePosts}
+              />
             ))}
           </div>
         ) : null}

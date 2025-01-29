@@ -62,14 +62,30 @@
 
 .quote_list .top {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 1rem;
+}
+
+
+.quote_list .user_info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quote_list .delete_icon {
+  cursor: pointer;
 }
 
 .quote_list .top img {
   height: 75px;
   border-radius: 50%;
 
+}
+
+.quote_list .delete_icon{
+  right: 0;
 }
 
 .quote_list .footer span{
