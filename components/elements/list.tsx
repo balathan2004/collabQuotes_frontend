@@ -2,7 +2,6 @@ import React, { FC } from "react";
 import { QuoteInterface } from "../interfaces";
 import styles from "@styles/blog.module.css";
 import moment from "moment";
-import DeleteIcon from "@mui/icons-material/Delete";
 interface Props {
   data: QuoteInterface;
   image?: string | false;

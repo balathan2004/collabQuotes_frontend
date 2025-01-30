@@ -23,14 +23,14 @@
 .quote_list {
   width: 100%;
   max-width: 500px;
-  margin-bottom: 5rem;
+  min-width: none;
+  margin-bottom: 3rem;
 }
 
 .quote_list a{
   text-decoration: none;
   color: inherit;
   font-size: 18px;
-
 }
 
 .quote_list a::before{
@@ -133,6 +133,10 @@
 
 @media (max-width: 768px) {
   .container{
-    width: 90%;
+    width: 95%;
   }
+  .quote_list .top img{
+    height: 60px;
+  }
+
 }

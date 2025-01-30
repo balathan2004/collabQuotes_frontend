@@ -45,12 +45,12 @@ const Account = () => {
         <div>
         <h1>{profileUserData.username} Profile</h1>
           <UserCard data={profileUserData} />
-          <main>
+          
           <h1>Quotes By User</h1>
           {profilePosts?.map((item) => (
             <QuoteList key={item.quoteId} data={item} image={profileUserData.profile_url} />
           ))}
-          </main>
+       
         </div>
       ) : null}
     </div>

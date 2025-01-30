@@ -29,12 +29,16 @@ const AuthorQuoteList: FC<Props> = ({
   const deletePost = async () => {
     if (isUserId !== data.userId) return;
 
+    const sending_data = {
+      userId: isUserId,
+      quote_id: data.quoteId,
+    };
+
+ 
+
     const response = await SendData({
       route: `${url}/posts/delete_post`,
-      data: {
-        userId: isUserId,
-        quote_id: data.quoteId,
-      },
+      data: sending_data,
     });
 
     if (response) {

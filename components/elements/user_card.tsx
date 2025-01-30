@@ -20,7 +20,7 @@ const UserCard: FC<Props> = ({ data }) => {
       </div>
       <div className={styles.right}>
         <a href="#" className={styles.username}>{data.username}</a>
-        <span>Email {data.email}</span>
+        <span>{data.email}</span>
         <span>Joined {timeHandler(data.createdAt)}</span>
         
       </div>
