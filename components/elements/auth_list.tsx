@@ -31,7 +31,7 @@ const AuthorQuoteList: FC<Props> = ({
 
     const sending_data = {
       userId: isUserId,
-      quote_id: data.quoteId,
+      quoteId: data.quoteId,
     };
 
  
