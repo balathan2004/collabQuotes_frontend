@@ -12,7 +12,7 @@ const ResetPassword = () => {
   const url = import.meta.env.VITE_DEST_URL;
   const router = useNavigate();
   const { setReply } = useReplyContext();
-  const { setIsLoading } = useLoadingContext();
+  const { isLoading,setIsLoading } = useLoadingContext();
 
   const submitForm = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -51,9 +51,9 @@ const ResetPassword = () => {
         />
 
         <Link to="/auth/login">Login here</Link>
-        <Button type="submit" variant="outlined">
-          Submit
-        </Button>
+          <Button type="submit" variant="outlined" disabled={isLoading}>
+                  {isLoading ? "Submitting" : "Submit"}
+                </Button>
       </form>
     </div>
   );

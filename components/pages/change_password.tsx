@@ -21,7 +21,7 @@ const ChangePassword = () => {
   const url = import.meta.env.VITE_DEST_URL;
 
   const { setReply } = useReplyContext();
-  const { setIsLoading } = useLoadingContext();
+  const { isLoading, setIsLoading } = useLoadingContext();
 
   const submitForm = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -92,8 +92,8 @@ const ChangePassword = () => {
         />
 
         <Link to="/auth/login">Login here</Link>
-        <Button type="submit" variant="outlined">
-          Submit
+        <Button type="submit" variant="outlined" disabled={isLoading}>
+          {isLoading ? "Submitting" : "Submit"}
         </Button>
       </form>
     </div>

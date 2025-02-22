@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { TextField, Button } from "@mui/material";
 import styles from "@styles/login.module.css";
 import { Link } from "react-router-dom";
@@ -9,10 +9,7 @@ import { useReplyContext } from "@components/context/reply_context";
 interface UserProps {
   email: string;
   password: string;
-  
 }
-
-
 
 const SignUp = () => {
   const [userData, setUserData] = useState<UserProps>({
@@ -21,10 +18,10 @@ const SignUp = () => {
   });
   const url = import.meta.env.VITE_DEST_URL;
 
-  const router=useNavigate()
+  const router = useNavigate();
 
   const { setReply } = useReplyContext();
-  const {setIsLoading} = useLoadingContext()
+  const { isLoading, setIsLoading } = useLoadingContext();
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -37,17 +34,17 @@ const SignUp = () => {
     event.preventDefault();
 
     if (userData.email && userData.password) {
-      setIsLoading(true)
+      setIsLoading(true);
       const response = await SendData({
         route: `${url}/auth/register`,
         data: userData,
       });
 
       if (response) {
-        setIsLoading(false)
+        setIsLoading(false);
         if (response.status == 200) {
           setReply(response.message);
-          router('/auth/login')
+          router("/auth/login");
         } else {
           setReply(response.message);
         }
@@ -79,10 +76,10 @@ const SignUp = () => {
           variant="outlined"
           required
         />
-    
+
         <Link to="/auth/login">Login here</Link>
-        <Button type="submit" variant="outlined">
-          SignUp
+        <Button type="submit" variant="outlined" disabled={isLoading}>
+          {isLoading ? "Registering" : "Register"}
         </Button>
       </form>
     </div>

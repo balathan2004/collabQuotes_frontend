@@ -13,7 +13,7 @@ const Tweet: FC = () => {
   const { setReply } = useReplyContext();
   const { userCred } = useUserContext();
   const router = useNavigate();
-  const { setIsLoading } = useLoadingContext();
+  const { isLoading, setIsLoading } = useLoadingContext();
 
   const handleInput = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -75,8 +75,8 @@ const Tweet: FC = () => {
             name="author"
             label="Mention Author Name"
           />
-          <Button type="submit" variant="outlined">
-            Submit
+          <Button type="submit" variant="outlined" disabled={isLoading}>
+            {isLoading ? "Submitting" : "Submit"}
           </Button>
         </form>
       </div>

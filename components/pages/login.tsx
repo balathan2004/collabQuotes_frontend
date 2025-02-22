@@ -21,7 +21,7 @@ const Login = () => {
   const { setUserCred } = useUserContext();
   const { setDirs } = useNavbarContext();
   const { setReply } = useReplyContext();
-  const { setIsLoading } = useLoadingContext();
+  const { isLoading, setIsLoading } = useLoadingContext();
 
   const router = useNavigate();
 
@@ -77,8 +77,8 @@ const Login = () => {
         />
         <Link to="/auth/reset-password">Forget Password?</Link>
         <Link to="/auth/register">No Account , Register here</Link>
-        <Button type="submit" variant="outlined">
-          Login
+        <Button type="submit" variant="outlined" disabled={isLoading}>
+          {isLoading ? "Logging in" : "Log in"}
         </Button>
       </form>
     </div>

@@ -11,7 +11,7 @@ const RequestVerification = () => {
   const url = import.meta.env.VITE_DEST_URL;
   const router = useNavigate();
   const { setReply } = useReplyContext();
-  const { setIsLoading } = useLoadingContext();
+  const { isLoading,setIsLoading } = useLoadingContext();
 
   const submitForm = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -50,9 +50,9 @@ const RequestVerification = () => {
         />
 
         <Link to="/auth/login">Login here</Link>
-        <Button type="submit" variant="outlined">
-          Submit
-        </Button>
+          <Button type="submit" variant="outlined" disabled={isLoading}>
+                  {isLoading ? "SUbmitting" : "Submit"}
+                </Button>
       </form>
     </div>
   );
