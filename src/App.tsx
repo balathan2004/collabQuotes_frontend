@@ -19,12 +19,15 @@ import AccountVerification from "@components/pages/verifyAccount";
 import ResetPassword from "@components/pages/reset-password";
 import ChangePassword from "@components/pages/change_password";
 import RequestVerification from "@components/pages/request_verification"
+import { Provider } from 'react-redux';
+import {store} from '../components/redux/store'
 
 
 function App() {
   return (
     <div className="container-fluid pt-5 root_container">
       <BrowserRouter>
+      <Provider store={store} >
         <UserContextHolder>
           <NavbarHolder>
             <ReplyHolder>
@@ -70,6 +73,7 @@ function App() {
             </ReplyHolder>
           </NavbarHolder>
         </UserContextHolder>
+        </Provider>
       </BrowserRouter>
     </div>
   );
