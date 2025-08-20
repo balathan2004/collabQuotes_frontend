@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { Button, TextField } from "@mui/material";
 import styles from "@styles/tweet.module.css";
-import SendData from "@components/utils/sendData";
+
 const url = import.meta.env.VITE_DEST_URL;
 import { useNavigate } from "react-router-dom";
 import { ResponseConfig } from "@components/interfaces";

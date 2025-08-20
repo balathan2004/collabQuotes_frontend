@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { TextField, Button } from "@mui/material";
 import styles from "@styles/login.module.css";
 import { Link } from "react-router-dom";
-import SendData from "@components/utils/sendData";
+// import SendData from "@components/utils/sendData";
 import { useLoadingContext } from "@components/context/loading_context";
 import { useReplyContext } from "@components/context/reply_context";
 import { useNavigate } from "react-router-dom";
@@ -28,20 +28,20 @@ const ChangePassword = () => {
 
     if (accessToken && password && confirmPass == password) {
       setIsLoading(true);
-      const response = await SendData({
-        route: `${url}/auth/change-password`,
-        data: { accessToken, password },
-      });
+      // const response = await SendData({
+      //   route: `${url}/auth/change-password`,
+      //   data: { accessToken, password },
+      // });
 
-      if (response) {
-        setIsLoading(false);
-        setReply(response.message);
-        if (response.status == 200) {
-          router("/auth/login");
-        }
-      } else {
-        setReply("error caught");
-      }
+      // if (response) {
+      //   setIsLoading(false);
+      //   setReply(response.message);
+      //   if (response.status == 200) {
+      //     router("/auth/login");
+      //   }
+      // } else {
+      //   setReply("error caught");
+      // }
     } else {
       console.log(accessToken, password, confirmPass);
       console.log("field missing");

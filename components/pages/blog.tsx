@@ -30,64 +30,64 @@ const Blog: FC = () => {
   const [hasMorePosts, setHasMorePosts] = useState(true);
 
   // Fetch function for both initial load and scrolling
-  const fetchMorePosts = async () => {
-    try {
-      const response = await fetch(
-        `${url}/posts/get_posts?page=${startFrom}&limit=10`,
-        { method: "GET" }
-      );
+  // const fetchMorePosts = async () => {
+  //   try {
+  //     const response = await fetch(
+  //       `${url}/posts/get_posts?page=${startFrom}&limit=10`,
+  //       { method: "GET" }
+  //     );
 
-      if (response.ok) {
-        const data: PostResponseConfig = await response.json();
-        const { quotes } = data;
+  //     if (response.ok) {
+  //       const data: PostResponseConfig = await response.json();
+  //       const { quotes } = data;
 
-        if (quotes && quotes.length > 0) {
+  //       if (quotes && quotes.length > 0) {
 
-          // Filter out duplicates before updating state
-          setQuotesData((prevData) => {
-            const newQuotes = quotes.filter(
-              (quote) =>
-                !prevData.some(
-                  (existingQuote) => existingQuote.quoteId === quote.quoteId
-                )
-            );
-            return [...prevData, ...newQuotes];
-          });
+  //         // Filter out duplicates before updating state
+  //         setQuotesData((prevData) => {
+  //           const newQuotes = quotes.filter(
+  //             (quote) =>
+  //               !prevData.some(
+  //                 (existingQuote) => existingQuote.quoteId === quote.quoteId
+  //               )
+  //           );
+  //           return [...prevData, ...newQuotes];
+  //         });
 
-          setStartFrom((prev) => prev + 1);
-        } else {
-          setHasMorePosts(false);
-        }
-      } else {
-        console.error("Failed to fetch more posts");
-        setHasMorePosts(false);
-      }
-    } catch (error) {
-      console.error("Error fetching more posts:", error);
-    }
-  };
+  //         setStartFrom((prev) => prev + 1);
+  //       } else {
+  //         setHasMorePosts(false);
+  //       }
+  //     } else {
+  //       console.error("Failed to fetch more posts");
+  //       setHasMorePosts(false);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching more posts:", error);
+  //   }
+  // };
 
-  const debouncedFunction = debounce(async () => {
-    await fetchMorePosts();
-    setIsLoading(false);
-  }, 1000);
+  // const debouncedFunction = debounce(async () => {
+  //   await fetchMorePosts();
+  //   setIsLoading(false);
+  // }, 1000);
 
-  const triggerMorePosts = async () => {
-    if (isLoading || !hasMorePosts) return; // Prevent multiple requests
-    setIsLoading(true); // Set loading as soon as debounce starts
-    debouncedFunction();
-  };
+  // const triggerMorePosts = async () => {
+  //   if (isLoading || !hasMorePosts) return; // Prevent multiple requests
+  //   setIsLoading(true); // Set loading as soon as debounce starts
+  //   debouncedFunction();
+  // };
 
-  useEffect(() => {
-    fetchMorePosts();
-  }, []);
+  // useEffect(() => {
+  //   fetchMorePosts();
+  // }, []);
 
   return (
     <div className="main_container">
       <div className={styles.container}>
         <h1>Blog</h1>
 
-        <InfiniteScroll
+        {/* <InfiniteScroll
           pageStart={0}
           loadMore={triggerMorePosts} // Use the debounced function for scrolling
           hasMore={hasMorePosts}
@@ -100,7 +100,7 @@ const Blog: FC = () => {
             />
           ))}
           <div></div>
-        </InfiniteScroll>
+        </InfiniteScroll> */}
 
         {hasMorePosts ? <LoadingTextComponent /> : ""}
       </div>

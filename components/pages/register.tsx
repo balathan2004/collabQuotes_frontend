@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { TextField, Button } from "@mui/material";
 import styles from "@styles/login.module.css";
 import { Link } from "react-router-dom";
-import SendData from "@components/utils/sendData";
+// import SendData from "@components/utils/sendData";
 import { useNavigate } from "react-router-dom";
 import { useLoadingContext } from "@components/context/loading_context";
 import { useReplyContext } from "@components/context/reply_context";
@@ -35,22 +35,22 @@ const SignUp = () => {
 
     if (userData.email && userData.password) {
       setIsLoading(true);
-      const response = await SendData({
-        route: `${url}/auth/register`,
-        data: userData,
-      });
+      // const response = await SendData({
+      //   route: `${url}/auth/register`,
+      //   data: userData,
+      // });
 
-      if (response) {
-        setIsLoading(false);
-        if (response.status == 200) {
-          setReply(response.message);
-          router("/auth/login");
-        } else {
-          setReply(response.message);
-        }
-      } else {
-        setReply("error caught");
-      }
+      // if (response) {
+      //   setIsLoading(false);
+      //   if (response.status == 200) {
+      //     setReply(response.message);
+      //     router("/auth/login");
+      //   } else {
+      //     setReply(response.message);
+      //   }
+      // } else {
+      //   setReply("error caught");
+      // }
     }
   };
 

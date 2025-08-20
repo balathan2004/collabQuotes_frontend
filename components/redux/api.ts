@@ -1,24 +1,28 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+// api.ts
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { RootState } from "./store";
 
-export const api = createApi({
-  reducerPath: 'api',
-  baseQuery: fetchBaseQuery({
-    baseUrl: '/api', // your API URL
-    prepareHeaders: (headers, { getState }) => {
-      const token = getState().auth?.accessToken; // assuming you store it in Redux state
+// 1️⃣ Define the baseQuery with headers
+const rawBaseQuery = fetchBaseQuery({
+  baseUrl: "http://localhost:3000/",
+  credentials: "include",
+  prepareHeaders: (headers, { getState }) => {
+    const state = getState() as RootState;
+    const token = state.auth?.accessToken;
 
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
-      }
-
-      return headers;
+    if (token) {
+      headers.set("Authorization", `Bearer ${token}`);
     }
-  }),
-  endpoints: (builder) => ({
-    getUser: builder.query({
-      query: () => '/user'
-    })
-  })
+
+    return headers;
+  },
 });
 
-export const { useGetUserQuery } = api;
+// 2️⃣ Create the main API instance
+export const api = createApi({
+  reducerPath: "api",   // unique key in the store
+  baseQuery: rawBaseQuery,
+  endpoints: () => ({}), // will inject endpoints later
+});
+
+

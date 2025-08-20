@@ -4,7 +4,7 @@ import { QuoteInterface } from "../interfaces";
 import styles from "@styles/blog.module.css";
 import moment from "moment";
 import DeleteIcon from "@mui/icons-material/Delete";
-import SendData from "@components/utils/sendData";
+// import SendData from "@components/utils/sendData";
 interface Props {
   data: QuoteInterface;
   image?: string | false;
@@ -36,20 +36,20 @@ const AuthorQuoteList: FC<Props> = ({
 
  
 
-    const response = await SendData({
-      route: `${url}/posts/delete_post`,
-      data: sending_data,
-    });
+    // const response = await SendData({
+    //   route: `${url}/posts/delete_post`,
+    //   data: sending_data,
+    // });
 
-    if (response) {
-      setReply(response.message);
-      if (response.status == 200) {
-        filterData(
-          (prev) =>
-            prev?.filter((item) => item.quoteId !== data.quoteId) || null
-        );
-      }
-    }
+    // if (response) {
+    //   setReply(response.message);
+    //   if (response.status == 200) {
+    //     filterData(
+    //       (prev) =>
+    //         prev?.filter((item) => item.quoteId !== data.quoteId) || null
+    //     );
+    //   }
+    // }
   };
 
   return (

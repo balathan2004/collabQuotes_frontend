@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { TextField, Button } from "@mui/material";
 import styles from "@styles/login.module.css";
 import { Link } from "react-router-dom";
-import SendData from "@components/utils/sendData";
+// import SendData from "@components/utils/sendData";
 import { useLoadingContext } from "@components/context/loading_context";
 import { useReplyContext } from "@components/context/reply_context";
 import { useNavigate } from "react-router-dom";
@@ -17,23 +17,23 @@ const ResetPassword = () => {
   const submitForm = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (email) {
-      setIsLoading(true);
-      const response = await SendData({
-        route: `${url}/auth/reset-password`,
-        data: { email },
-      });
+    // if (email) {
+    //   setIsLoading(true);
+    //   const response = await SendData({
+    //     route: `${url}/auth/reset-password`,
+    //     data: { email },
+    //   });
 
-      if (response) {
-        setIsLoading(false);
-        setReply(response.message);
-        if (response.status == 200) {
-          router("/auth/login");
-        }
-      } else {
-        setReply("error caught");
-      }
-    }
+    //   if (response) {
+    //     setIsLoading(false);
+    //     setReply(response.message);
+    //     if (response.status == 200) {
+    //       router("/auth/login");
+    //     }
+    //   } else {
+    //     setReply("error caught");
+    //   }
+    // }
   };
 
   return (

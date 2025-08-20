@@ -41,6 +41,7 @@ const Login = () => {
         route: `${url}/auth/login`,
         data: userData,
       });
+      console.log({response});
       if (response) {
         setIsLoading(false);
         if (response.status == 200) {
