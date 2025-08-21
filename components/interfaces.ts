@@ -1,4 +1,3 @@
-import { User } from "@supabase/supabase-js";
 
 export interface ResponseConfig {
   status: 200 | 300 | 400;

@@ -5,8 +5,6 @@ import Blog from "@components/pages/blog";
 import Tweet from "@components/pages/tweet";
 import ContextWrapper from "@components/context/context_wrapper";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import NavbarHolder from "@components/context/navbar_context";
-import UserContextHolder from "@components/context/user_context";
 import PageNotFound from "@components/pages/not_found";
 import ReplyHolder from "@components/context/reply_context";
 import Account from "@components/pages/account";
@@ -28,8 +26,6 @@ function App() {
     <div className="container-fluid pt-5 root_container">
       <BrowserRouter>
       <Provider store={store} >
-        <UserContextHolder>
-          <NavbarHolder>
             <ReplyHolder>
               <LoadingHolder>
                 <ContextWrapper>
@@ -71,8 +67,6 @@ function App() {
                 </ContextWrapper>
               </LoadingHolder>
             </ReplyHolder>
-          </NavbarHolder>
-        </UserContextHolder>
         </Provider>
       </BrowserRouter>
     </div>

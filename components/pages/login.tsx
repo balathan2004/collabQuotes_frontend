@@ -3,7 +3,6 @@ import { TextField, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import styles from "@styles/login.module.css";
 import LoginFetch from "@components/utils/loginFetch";
-import { useUserContext } from "@components/context/user_context";
 import { useNavigate } from "react-router-dom";
 import { useReplyContext } from "@components/context/reply_context";
 import { useLoadingContext } from "@components/context/loading_context";
@@ -11,15 +10,15 @@ interface UserProps {
   email: string;
   password: string;
 }
-import { useNavbarContext, NavUsers } from "@components/context/navbar_context";
+
 const url = import.meta.env.VITE_DEST_URL;
 const Login = () => {
   const [userData, setUserData] = useState<UserProps>({
     email: "",
     password: "",
   });
-  const { setUserCred } = useUserContext();
-  const { setDirs } = useNavbarContext();
+
+
   const { setReply } = useReplyContext();
   const { isLoading, setIsLoading } = useLoadingContext();
 
@@ -45,8 +44,6 @@ const Login = () => {
       if (response) {
         setIsLoading(false);
         if (response.status == 200) {
-          setUserCred(response.credentials);
-          setDirs(NavUsers);
           router("/blog");
         }
         setReply(response.message);

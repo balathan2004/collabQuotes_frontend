@@ -14,12 +14,14 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { useNavbarContext } from "@components/context/navbar_context";
+import { useAuth } from "@components/redux/apis/authSlice";
+
 
 const drawerWidth = 240;
 
 function DrawerAppBar() {
-  const { dirs, setDirs } = useNavbarContext();
+ 
+  const {navbarState}=useAuth()
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -34,7 +36,7 @@ function DrawerAppBar() {
       </Typography>
       <Divider />
       <List>
-        {dirs.map((item) => (
+        {navbarState.map((item) => (
           <Link to={item.path} key={item.name}>
             <ListItem disablePadding>
               <ListItemButton sx={{ textAlign: "center" }}>
@@ -70,7 +72,7 @@ function DrawerAppBar() {
            <Link to="/">CollabQuotes</Link>
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {dirs.map((item) => (
+            {navbarState.map((item) => (
               <Link to={item.path} key={item.name}>
                 <Button sx={{ color: "#fff" }}>{item.name}</Button>
               </Link>

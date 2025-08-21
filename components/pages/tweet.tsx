@@ -1,17 +1,13 @@
 import React, { FC, useState } from "react";
 import { Button, TextField } from "@mui/material";
 import styles from "@styles/tweet.module.css";
-// import SendData from "@components/utils/sendData";
-import { useUserContext } from "@components/context/user_context";
-const url = import.meta.env.VITE_DEST_URL;
 import { useNavigate } from "react-router-dom";
 import { useLoadingContext } from "@components/context/loading_context";
-import { useReplyContext } from "@components/context/reply_context";
+
 const Tweet: FC = () => {
   const [quote, setQuote] = useState("");
   const [author, setAuthor] = useState("");
-  const { setReply } = useReplyContext();
-  const { userCred } = useUserContext();
+
   const router = useNavigate();
   const { isLoading, setIsLoading } = useLoadingContext();
 

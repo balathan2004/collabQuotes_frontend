@@ -4,11 +4,26 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store";
 import {authApi} from './auth'
 
+
+export const NavInit= [{ name: "Blog", path: "/blog" },
+  { name: "About", path: "/about" },
+  { name: "Login", path: "/auth/login" },
+  { name: "Signup", path: "/auth/register" }]
+
+
+  export const NavUsers = [
+    { name: "Blog", path: "/blog" },
+    { name: "Tweet", path: "/tweet" },
+    { name: "About", path: "/about" },
+    { name: "Account", path: "/account" },]
+
+
 const initialState = {
   accessToken: "",
   refreshToken: "",
   isLogin: false,
   data: {} as UserDataInterface,
+  navbarState:NavInit
 };
 
 const authSlice = createSlice({
@@ -27,6 +42,7 @@ const authSlice = createSlice({
      // state.refreshToken = null;
       state.data = {} as UserDataInterface;
       state.isLogin = false;
+            state.navbarState=NavInit
     },
   },
   extraReducers:(builder)=>{
@@ -35,6 +51,7 @@ const authSlice = createSlice({
         state.accessToken = payload.accessToken;
         state.data = payload.credentials as UserDataInterface;
         state.isLogin = true;
+        state.navbarState=NavUsers
         console.log("✅ Login stored in authSlice");
 
     })
