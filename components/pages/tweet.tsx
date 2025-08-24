@@ -3,13 +3,18 @@ import { Button, TextField } from "@mui/material";
 import styles from "@styles/tweet.module.css";
 import { useNavigate } from "react-router-dom";
 import { useLoadingContext } from "@components/context/loading_context";
+import { useCreatePostMutation } from "@components/redux/apis/postApi";
+import { useAuth } from "@components/redux/apis/authSlice";
 
 const Tweet: FC = () => {
   const [quote, setQuote] = useState("");
   const [author, setAuthor] = useState("");
 
   const router = useNavigate();
-  const { isLoading, setIsLoading } = useLoadingContext();
+
+  const { data: userData } = useAuth();
+
+  const [createPost, { isLoading }] = useCreatePostMutation();
 
   const handleInput = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -26,28 +31,16 @@ const Tweet: FC = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // if (quote && userCred) {
-    //   setIsLoading(true);
-    //   const data = {
-    //     quote: quote,
-    //     author: author ? author : "unknown",
-    //     username: userCred.username,
-    //   };
-    //   const response = await SendData({
-    //     route: `${url}/posts/create_tweet`,
-    //     data: data,
-    //   });
-    //   if (response) {
-    //     console.log(response);
-    //     setIsLoading(false);
-    //     setReply(response.message);
-    //     if (response.status == 200) {
-    //       router("/blog");
-    //     }
-    //   } else {
-    //     setReply("Error Caught");
-    //   }
-    // }
+    if (!quote.trim()) return;
+
+    createPost({
+      username: userData.username,
+      author: author ? author : "unknown",
+      quote,
+    })
+      .unwrap()
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   };
 
   return (
