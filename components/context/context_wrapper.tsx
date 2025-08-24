@@ -10,12 +10,6 @@ const ContextWrapper: FC<{ children: ReactNode }> = ({ children }) => {
   
   const url = import.meta.env.VITE_DEST_URL;
 
-  useEffect(() => {
-    console.log("data",data)
-  }, [data]);
-
-
-
   return (
     <>
       <ReplyPopUp />

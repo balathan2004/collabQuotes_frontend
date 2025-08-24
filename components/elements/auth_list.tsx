@@ -1,5 +1,4 @@
 import { FC } from "react";
-import { useReplyContext } from "@components/context/reply_context";
 import { QuoteInterface } from "../interfaces";
 import styles from "@styles/blog.module.css";
 import moment from "moment";
@@ -9,7 +8,7 @@ interface Props {
   data: QuoteInterface;
   image?: string | false;
   isUserId: string;
-  filterData: React.Dispatch<React.SetStateAction<QuoteInterface[] | null>>;
+  // filterData: React.Dispatch<React.SetStateAction<QuoteInterface[] | null>>;
 }
 
 const url = import.meta.env.VITE_DEST_URL;
@@ -18,13 +17,12 @@ const AuthorQuoteList: FC<Props> = ({
   data,
   image = false,
   isUserId,
-  filterData,
+  // filterData,
 }) => {
   const timeHandler = (date: number) => {
     return moment(new Date(date)).fromNow();
   };
 
-  const { setReply } = useReplyContext();
 
   const deletePost = async () => {
     if (isUserId !== data.userId) return;

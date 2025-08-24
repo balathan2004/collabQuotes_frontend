@@ -1,22 +1,7 @@
 import "./App.css";
-import Login from "@components/pages/login";
-import SignUp from "@components/pages/register";
-import Blog from "@components/pages/blog";
-import Tweet from "@components/pages/tweet";
-import ContextWrapper from "@components/context/context_wrapper";
+import ContextStack from "@components/stacks/ContextStack"
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import PageNotFound from "@components/pages/not_found";
-import ReplyHolder from "@components/context/reply_context";
-import Account from "@components/pages/account";
-import About from "@components/pages/about";
-import Home from "@components/pages/home";
-import Profile from "@components/pages/profile";
-import LoadingHolder from "@components/context/loading_context";
-import AdminBlukTweet from "@components/pages/admin";
-import AccountVerification from "@components/pages/verifyAccount";
-import ResetPassword from "@components/pages/reset-password";
-import ChangePassword from "@components/pages/change_password";
-import RequestVerification from "@components/pages/request_verification"
+import Router from "@components/Router/MainRouter"
 import { Provider } from 'react-redux';
 import {store} from '../components/redux/store'
 
@@ -26,47 +11,13 @@ function App() {
     <div className="container-fluid pt-5 root_container">
       <BrowserRouter>
       <Provider store={store} >
-            <ReplyHolder>
-              <LoadingHolder>
-                <ContextWrapper>
-                  <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/blog" element={<Blog />} />
-                    <Route path="/about" element={<About />} />
-                    <Route path="/tweet" element={<Tweet />} />
-                    <Route path="/account" element={<Account />} />
-                    <Route path="/profile" element={<Profile />} />
-                    <Route
-                      path="/auth/verify"
-                      element={<AccountVerification />}
-                    />
 
-                    <Route
-                      path="/auth/reset-password"
-                      element={<ResetPassword />}
-                    />
-
-                    <Route
-                      path="/auth/change-password"
-                      element={<ChangePassword />}
-                    />
-
-                     <Route
-                      path="/auth/request-verification"
-                      element={<RequestVerification />}
-                    />
-
-                    <Route path="/auth/login" element={<Login />} />
-                    <Route path="/auth/register" element={<SignUp />} />
-                    <Route
-                      path="/admin/light/secure"
-                      element={<AdminBlukTweet />}
-                    />
-                    <Route path="*" element={<PageNotFound />} />
-                  </Routes>
-                </ContextWrapper>
-              </LoadingHolder>
-            </ReplyHolder>
+        <ContextStack>
+          <Router/>
+        </ContextStack>
+           
+                  
+            
         </Provider>
       </BrowserRouter>
     </div>
