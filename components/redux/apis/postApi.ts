@@ -30,23 +30,23 @@ export const postApi = api
 
       deletePost: builder.mutation<ResponseConfig, { postId: string }>({
         query: ({ postId }) => ({
-          url: `posts?postId=${postId}`,
+          url: `posts?quoteId=${postId}`,
           method: "DELETE",
         }),
         invalidatesTags: ["profile"],
       }),
 
-      editPost: builder.mutation<
-        ResponseConfig,
-        { userId: string; postId: string }
-      >({
-        query: (payload) => ({
-          url: "posts",
-          method: "POST",
-          body: payload,
-        }),
-        invalidatesTags: ["profile"],
-      }),
+      // editPost: builder.mutation<
+      //   ResponseConfig,
+      //   { userId: string; postId: string }
+      // >({
+      //   query: (payload) => ({
+      //     url: "posts/",
+      //     method: "POST",
+      //     body: payload,
+      //   }),
+      //   invalidatesTags: ["profile"],
+      // }),
     }),
     overrideExisting: false, // keep other endpoints safe
   });

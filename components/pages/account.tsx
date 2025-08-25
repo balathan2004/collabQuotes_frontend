@@ -22,7 +22,7 @@ const Account = () => {
 
     deletePost({ postId: selectedId })
       .unwrap()
-      .then((res) => console.log(res))
+      .then((res) => setSelectedId(""))
       .catch((err) => console.log(err));
   };
 
