@@ -39,7 +39,10 @@ const Tweet: FC = () => {
       quote,
     })
       .unwrap()
-      .then((res) => console.log(res))
+      .then((res) =>{
+        console.log(res);
+        router('/blog')
+      })
       .catch((err) => console.log(err));
   };
 

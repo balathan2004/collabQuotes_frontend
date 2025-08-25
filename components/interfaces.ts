@@ -30,7 +30,7 @@ export interface QuotesInterfaceWithProfile extends QuoteInterface {
 }
 
 export interface PostResponseConfig extends ResponseConfig {
-  quotes: QuotesInterfaceWithProfile[]| null;
+  quotes: QuotesInterfaceWithProfile[];
 }
 
 export interface ProfileResponseCofig extends ResponseConfig {

@@ -13,8 +13,14 @@ export const profileApi = api
         }),
         providesTags: ["profile"],
       }),
+      getProfileById: builder.query<ProfileResponseCofig, string>({
+        query: (id) => ({
+          url: `public/get_profile/${id}`,
+          method: "GET",
+        }),
+      }),
     }),
     overrideExisting: false, // keep other endpoints safe
   });
 
-export const { useGetUserQuotesQuery } = profileApi;
+export const { useGetUserQuotesQuery,useGetProfileByIdQuery } = profileApi;
