@@ -2,9 +2,13 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { RootState } from "./store";
 
+// const url="https://collab-quotes-server.vercel.app/"
+const url="http://localhost:3000/"
+
+
 // 1️⃣ Define the baseQuery with headers
 const rawBaseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:3000/",
+  baseUrl: url,
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const state = getState() as RootState;

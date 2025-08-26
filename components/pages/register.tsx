@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 // import SendData from "@components/utils/sendData";
 import { useNavigate } from "react-router-dom";
 import { useLoadingContext } from "@components/context/loading_context";
-import { useReplyContext } from "@components/context/reply_context";
+
 interface UserProps {
   email: string;
   password: string;
@@ -20,7 +20,7 @@ const SignUp = () => {
 
   const router = useNavigate();
 
-  const { setReply } = useReplyContext();
+
   const { isLoading, setIsLoading } = useLoadingContext();
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {

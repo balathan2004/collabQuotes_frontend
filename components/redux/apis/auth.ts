@@ -1,12 +1,20 @@
 // api/authApi.ts
+import { register } from 'module';
 import {api} from '../api'
 import { AuthResponseConfig } from "@components/interfaces";
 
 export const authApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    login: builder.mutation<{ accessToken: string; credentials: any }, { email: string; password: string }>({
+    login: builder.mutation<AuthResponseConfig, { email: string; password: string }>({
       query: (body) => ({
         url: "auth/login",
+        method: "POST",
+        body,
+      }),
+    }),
+    register: builder.mutation<AuthResponseConfig, { email: string; password: string }>({
+      query: (body) => ({
+        url: "auth/register",
         method: "POST",
         body,
       }),

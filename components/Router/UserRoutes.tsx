@@ -4,6 +4,8 @@ import { useAuth } from "@components/redux/apis/authSlice";
 export default function ProtectedRoute({ children }: { children: ReactNode }) {
   const { accessToken, isPageLoading, isLogin } = useAuth();
 
+  console.log("protected routes",accessToken,isLogin,);
+
   if (isPageLoading) {
     return (
       <div>

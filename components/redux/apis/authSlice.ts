@@ -62,6 +62,20 @@ const authSlice = createSlice({
         console.log("✅ Login stored in authSlice");
       }
     ),
+     builder.addMatcher(
+      authApi.endpoints.login.matchFulfilled,
+      (state, { payload }) => {
+
+        console.log("login payload",payload);
+
+        state.accessToken = payload.accessToken;
+        state.data = payload.credentials as UserDataInterface;
+        state.isLogin = true;
+        state.isPageLoading = false;
+        state.navbarState = NavUsers;
+        console.log("✅ Login stored in authSlice");
+      }
+    ),
       builder.addMatcher(
         authApi.endpoints.refreshToken.matchRejected,
         (state) => {

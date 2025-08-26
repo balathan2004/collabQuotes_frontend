@@ -7,7 +7,7 @@ const ContextWrapper: FC<{ children: ReactNode }> = ({ children }) => {
 
   const {data}=useRefreshTokenQuery()
   
-  const url = import.meta.env.VITE_DEST_URL;
+
 
   return (
     <>
