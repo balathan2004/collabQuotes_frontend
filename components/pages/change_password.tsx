@@ -4,8 +4,8 @@ import styles from "@styles/login.module.css";
 import { Link } from "react-router-dom";
 // import SendData from "@components/utils/sendData";
 import { useLoadingContext } from "@components/context/loading_context";
-import { useReplyContext } from "@components/context/reply_context";
 import { useNavigate } from "react-router-dom";
+import { CustomToast } from "@components/elements/CustomAlert";
 interface UserProps {
   email: string;
   password: string;
@@ -20,7 +20,7 @@ const ChangePassword = () => {
   const [accessToken, setAccessToken] = useState("");
   const url = import.meta.env.VITE_DEST_URL;
 
-  const { setReply } = useReplyContext();
+
   const { isLoading, setIsLoading } = useLoadingContext();
 
   const submitForm = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -60,7 +60,7 @@ const ChangePassword = () => {
     console.log(accessTkn, email);
 
     if (!accessTkn || !email) {
-      setReply("Invalid or missing access token.");
+      CustomToast({type:"error",message:"Invalid or missing access token."})
     } else {
       setAccessToken(accessTkn);
       setEmail(email);

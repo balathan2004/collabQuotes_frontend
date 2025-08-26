@@ -7,13 +7,19 @@ import { useAuth } from "@components/redux/apis/authSlice";
 import { useGetUserQuotesQuery } from "../redux/apis/profile";
 import ConfirmPopup from "@components/elements/ComfirmPopup";
 import { useDeletePostMutation } from "@components/redux/apis/postApi";
+import { CircularProgress } from "@mui/material";
+import { CustomToast } from "@components/elements/CustomAlert";
 
 const Account = () => {
   const { data: userData } = useAuth();
 
   const [selectedId, setSelectedId] = useState<string>("");
 
-  const { data: quotesData, error } = useGetUserQuotesQuery();
+  const {
+    data: quotesData,
+    error,
+    isLoading: isLoadingQuotes,
+  } = useGetUserQuotesQuery();
 
   const [deletePost, { isLoading }] = useDeletePostMutation();
 
@@ -22,8 +28,14 @@ const Account = () => {
 
     deletePost({ postId: selectedId })
       .unwrap()
-      .then((res) => setSelectedId(""))
-      .catch((err) => console.log(err));
+      .then((res) => {
+        CustomToast({ type: "success", message: res.message });
+        setSelectedId("");
+      })
+      .catch((err) => {
+        CustomToast({ type: "error", message: err.message || "Error Caught" });
+        console.log(err);
+      });
   };
 
   return (
@@ -43,6 +55,9 @@ const Account = () => {
           <UserCard data={userData} />
 
           <h1>Quotes By User</h1>
+
+          {isLoadingQuotes && <CircularProgress className="loader" />}
+
           {quotesData?.userPosts?.map((item) => (
             <AuthorQuoteList
               key={item.quoteId}

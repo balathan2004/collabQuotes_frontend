@@ -4,13 +4,11 @@ import styles from "@styles/login.module.css";
 import { Link } from "react-router-dom";
 // import SendData from "@components/utils/sendData";
 import { useLoadingContext } from "@components/context/loading_context";
-import { useReplyContext } from "@components/context/reply_context";
 import { useNavigate } from "react-router-dom";
 const RequestVerification = () => {
   const [email, setEmail] = useState("");
   const url = import.meta.env.VITE_DEST_URL;
   const router = useNavigate();
-  const { setReply } = useReplyContext();
   const { isLoading,setIsLoading } = useLoadingContext();
 
   const submitForm = async (event: React.FormEvent<HTMLFormElement>) => {

@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import styles from "@styles/login.module.css";
 import LoginFetch from "@components/utils/loginFetch";
 import { useNavigate } from "react-router-dom";
-import { useReplyContext } from "@components/context/reply_context";
 import { useLoadingContext } from "@components/context/loading_context";
+import { CustomToast } from "@components/elements/CustomAlert";
 interface UserProps {
   email: string;
   password: string;
@@ -19,7 +19,7 @@ const Login = () => {
   });
 
 
-  const { setReply } = useReplyContext();
+
   const { isLoading, setIsLoading } = useLoadingContext();
 
   const router = useNavigate();
@@ -46,7 +46,7 @@ const Login = () => {
         if (response.status == 200) {
           router("/blog");
         }
-        setReply(response.message);
+CustomToast({type:"error",message:"Invalid or missing access token."})
       }
     }
   };

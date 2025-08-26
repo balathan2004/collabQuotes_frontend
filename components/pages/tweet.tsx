@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useLoadingContext } from "@components/context/loading_context";
 import { useCreatePostMutation } from "@components/redux/apis/postApi";
 import { useAuth } from "@components/redux/apis/authSlice";
+import { CustomToast } from "@components/elements/CustomAlert";
 
 const Tweet: FC = () => {
   const [quote, setQuote] = useState("");
@@ -39,11 +40,16 @@ const Tweet: FC = () => {
       quote,
     })
       .unwrap()
-      .then((res) =>{
+      .then((res) => {
+        CustomToast({ type: "success", message: res.message });
         console.log(res);
-        router('/blog')
+        router("/blog");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        CustomToast({ type: "error", message: err.message || "Error Caught" });
+
+        console.log(err);
+      });
   };
 
   return (
