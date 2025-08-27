@@ -81,6 +81,15 @@ const authSlice = createSlice({
         (state) => {
           state.isPageLoading = false; // ❌ no token
           state.isLogin = false;
+            state.data={} as UserDataInterface;
+          state.navbarState=NavInit
+        }
+      ),
+       builder.addMatcher(
+        authApi.endpoints.logout.matchFulfilled,
+        () => {
+          console.log("matched fullfilled");
+          return {...initialState,isPageLoading:false}
         }
       );
   },

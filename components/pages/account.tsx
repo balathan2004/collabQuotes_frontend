@@ -2,16 +2,19 @@ import React, { useState } from "react";
 import styles from "@styles/profile.module.css";
 import AuthorQuoteList from "@components/elements/auth_list";
 import UserCard from "../elements/user_card";
-import { useLoadingContext } from "@components/context/loading_context";
 import { useAuth } from "@components/redux/apis/authSlice";
 import { useGetUserQuotesQuery } from "../redux/apis/profile";
 import ConfirmPopup from "@components/elements/ComfirmPopup";
 import { useDeletePostMutation } from "@components/redux/apis/postApi";
 import { CircularProgress } from "@mui/material";
 import { CustomToast } from "@components/elements/CustomAlert";
+import { useLogoutMutation } from "@components/redux/apis/auth";
+import { useNavigate } from "react-router-dom";
 
 const Account = () => {
   const { data: userData } = useAuth();
+
+
 
   const [selectedId, setSelectedId] = useState<string>("");
 
@@ -20,6 +23,8 @@ const Account = () => {
     error,
     isLoading: isLoadingQuotes,
   } = useGetUserQuotesQuery();
+
+  const [logout, { isLoading: isLoggingOut }] = useLogoutMutation();
 
   const [deletePost, { isLoading }] = useDeletePostMutation();
 
@@ -38,6 +43,20 @@ const Account = () => {
       });
   };
 
+  const handleLogout = async () => {
+    logout()
+      .unwrap()
+      .then((res) => {
+        console.log({ res });
+        CustomToast({ type: "success", message: res.message });
+        return;
+      })
+      .catch((err) => {
+        CustomToast({ type: "error", message: err.message });
+        return;
+      });
+  };
+
   return (
     <div className="main_container">
       <div className={styles.container}>
@@ -53,6 +72,7 @@ const Account = () => {
             btnLabel2="Yes"
           />
           <UserCard data={userData} />
+          <button onClick={handleLogout}>Logout</button>
 
           <h1>Quotes By User</h1>
 

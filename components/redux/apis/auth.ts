@@ -1,7 +1,7 @@
 // api/authApi.ts
 import { register } from 'module';
 import {api} from '../api'
-import { AuthResponseConfig } from "@components/interfaces";
+import { AuthResponseConfig, ResponseConfig } from "@components/interfaces";
 
 export const authApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -25,8 +25,14 @@ export const authApi = api.injectEndpoints({
         method: "GET",
       }),
     }),
+     logout: builder.mutation<ResponseConfig, void>({
+      query: () => ({
+        url: "auth/logout",
+        method: "GET",
+      }),
+    }),
   }),
   overrideExisting: false, // keep other endpoints safe
 });
 
-export const { useLoginMutation, useRefreshTokenQuery } = authApi;
+export const { useLoginMutation, useRefreshTokenQuery,useLogoutMutation } = authApi;
