@@ -44,7 +44,8 @@ const Login = () => {
         router("/blog");
       })
       .catch((err) => {
-        return CustomToast({ type: "error", message: err.message });
+        console.log(err);
+        return CustomToast({ type: "error", message: err.data.message });
       });
   };
 
