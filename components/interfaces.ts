@@ -5,8 +5,9 @@ export interface ResponseConfig {
 }
 
 export interface AuthResponseConfig extends ResponseConfig {
-  credentials: UserDataInterface;
-  accessToken:string
+  credentials: UserDataInterface |null ;
+  accessToken?:string
+  refreshToken?:string;
 }
 export interface QuoteInterface {
   quote: string;

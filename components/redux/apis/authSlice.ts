@@ -54,7 +54,7 @@ const authSlice = createSlice({
     builder.addMatcher(
       authApi.endpoints.refreshToken.matchFulfilled,
       (state, { payload }) => {
-        state.accessToken = payload.accessToken;
+        state.accessToken = payload.accessToken ||"";
         state.data = payload.credentials as UserDataInterface;
         state.isLogin = true;
         state.isPageLoading = false;
@@ -68,11 +68,12 @@ const authSlice = createSlice({
 
         console.log("login payload",payload);
 
-        state.accessToken = payload.accessToken;
+        state.accessToken = payload?.accessToken||"";
         state.data = payload.credentials as UserDataInterface;
         state.isLogin = true;
         state.isPageLoading = false;
         state.navbarState = NavUsers;
+        localStorage.setItem("collabQuotes_refreshToken",payload?.refreshToken||"")
         console.log("✅ Login stored in authSlice");
       }
     ),
