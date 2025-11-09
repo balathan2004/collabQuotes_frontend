@@ -1,28 +1,23 @@
 import { FC, ReactNode, useEffect, useState } from "react";
 import DrawerAppBar from "@components/elements/navbar";
-import { useRefreshTokenQuery } from "@components/redux/apis/auth";
-import  { Toaster } from 'react-hot-toast';
+import { useRefreshTokenMutation } from "@components/redux/apis/auth";
+import { Toaster } from 'react-hot-toast';
 
 const ContextWrapper: FC<{ children: ReactNode }> = ({ children }) => {
 
+  const [getAccessToken] = useRefreshTokenMutation()
 
-  const [token,setToken]=useState<string|null>(null)
-
-  const {data}=useRefreshTokenQuery(token as string,{skip:!token})
-
-  console.log({data});
-  
-
-    useEffect(() => {
-    const savedToken = localStorage.getItem("collabQuotes_refreshToken");
-    setToken(savedToken);
+  useEffect(() => {
+    const refreshToken = localStorage.getItem("collabQuotes_refreshToken");
+    if (!refreshToken) return
+    getAccessToken({ refreshToken })
   }, []);
 
   return (
     <>
       <DrawerAppBar />
       {children}
-      <Toaster/>
+      <Toaster />
     </>
   );
 };
