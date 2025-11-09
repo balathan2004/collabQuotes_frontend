@@ -8,14 +8,11 @@ import ConfirmPopup from "@components/elements/ComfirmPopup";
 import { useDeletePostMutation } from "@components/redux/apis/postApi";
 import { CircularProgress } from "@mui/material";
 import { CustomToast } from "@components/elements/CustomAlert";
-import { useLogoutMutation } from "@components/redux/apis/auth";
+
 import { useNavigate } from "react-router-dom";
 
 const Account = () => {
-  const { data: userData } = useAuth();
-
-
-
+  const { data: userData, handleLogout } = useAuth();
   const [selectedId, setSelectedId] = useState<string>("");
 
   const {
@@ -23,8 +20,6 @@ const Account = () => {
     error,
     isLoading: isLoadingQuotes,
   } = useGetUserQuotesQuery();
-
-  const [logout, { isLoading: isLoggingOut }] = useLogoutMutation();
 
   const [deletePost, { isLoading }] = useDeletePostMutation();
 
@@ -43,18 +38,8 @@ const Account = () => {
       });
   };
 
-  const handleLogout = async () => {
-    logout()
-      .unwrap()
-      .then((res) => {
-        console.log({ res });
-        CustomToast({ type: "success", message: res.message });
-        return;
-      })
-      .catch((err) => {
-        CustomToast({ type: "error", message: err.message });
-        return;
-      });
+  const logout = async () => {
+    handleLogout()
   };
 
   return (
@@ -72,7 +57,7 @@ const Account = () => {
             btnLabel2="Yes"
           />
           <UserCard data={userData} />
-          <button onClick={handleLogout}>Logout</button>
+          <button onClick={logout}>Logout</button>
 
           <h1>Quotes By User</h1>
 

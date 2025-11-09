@@ -37,15 +37,10 @@ export const authApi = api.injectEndpoints({
         };
       },
     }),
-    logout: builder.mutation<ResponseConfig, void>({
-      query: () => ({
-        url: "auth/logout",
-        method: "GET",
-      }),
-    }),
+  
   }),
   overrideExisting: false, // keep other endpoints safe
 });
 
-export const { useLoginMutation, useRefreshTokenMutation, useLogoutMutation } =
+export const { useLoginMutation, useRefreshTokenMutation } =
   authApi;

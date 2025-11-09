@@ -40,9 +40,9 @@ const authSlice = createSlice({
     },
     logout: (state) => {
       state.accessToken = "";
-      // state.refreshToken = null;
       state.data = {} as UserDataInterface;
       state.isLogin = false;
+      localStorage.removeItem("collabQuotes_refreshToken");
       state.navbarState = NavInit;
     },
   },
@@ -54,7 +54,7 @@ const authSlice = createSlice({
     builder.addMatcher(
       authApi.endpoints.refreshToken.matchFulfilled,
       (state, { payload }) => {
-        state.accessToken = payload.accessToken ||"";
+        state.accessToken = payload.accessToken || "";
         state.data = payload.credentials as UserDataInterface;
         state.isLogin = true;
         state.isPageLoading = false;
@@ -62,35 +62,30 @@ const authSlice = createSlice({
         console.log("✅ Login stored in authSlice");
       }
     ),
-     builder.addMatcher(
-      authApi.endpoints.login.matchFulfilled,
-      (state, { payload }) => {
+      builder.addMatcher(
+        authApi.endpoints.login.matchFulfilled,
+        (state, { payload }) => {
+          console.log("login payload", payload);
 
-        console.log("login payload",payload);
-
-        state.accessToken = payload?.accessToken||"";
-        state.data = payload.credentials as UserDataInterface;
-        state.isLogin = true;
-        state.isPageLoading = false;
-        state.navbarState = NavUsers;
-        localStorage.setItem("collabQuotes_refreshToken",payload?.refreshToken||"")
-        console.log("✅ Login stored in authSlice");
-      }
-    ),
+          state.accessToken = payload?.accessToken || "";
+          state.data = payload.credentials as UserDataInterface;
+          state.isLogin = true;
+          state.isPageLoading = false;
+          state.navbarState = NavUsers;
+          localStorage.setItem(
+            "collabQuotes_refreshToken",
+            payload?.refreshToken || ""
+          );
+          console.log("✅ Login stored in authSlice");
+        }
+      ),
       builder.addMatcher(
         authApi.endpoints.refreshToken.matchRejected,
         (state) => {
           state.isPageLoading = false; // ❌ no token
           state.isLogin = false;
-            state.data={} as UserDataInterface;
-          state.navbarState=NavInit
-        }
-      ),
-       builder.addMatcher(
-        authApi.endpoints.logout.matchFulfilled,
-        () => {
-          console.log("matched fullfilled");
-          return {...initialState,isPageLoading:false}
+          state.data = {} as UserDataInterface;
+          state.navbarState = NavInit;
         }
       );
   },
@@ -100,5 +95,11 @@ export const { setCredentials, logout } = authSlice.actions;
 export default authSlice.reducer;
 
 export const useAuth = () => {
-  return useSelector((state: RootState) => state.auth);
+  const data = useSelector((state: RootState) => state.auth);
+
+  const handleLogout = () => {
+    logout();
+  };
+
+  return { ...data, handleLogout };
 };
