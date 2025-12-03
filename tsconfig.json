@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
     "baseUrl": "./",
+    "ignoreDeprecations": "6.0",
+
     "paths": {
       "@components/*": ["components/*"],
       "@styles/*": ["styles/*"]
@@ -14,6 +16,6 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src","components","styles"],
+  "include": ["src", "components", "styles"],
   "exclude": ["node_modules"]
 }
