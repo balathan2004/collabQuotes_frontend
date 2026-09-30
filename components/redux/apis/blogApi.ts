@@ -1,16 +1,17 @@
+
 // api/authApi.ts
 import { api } from "../api";
-import { PostResponseConfig } from "../../interfaces";
+import { ListRes, QuotesWithProfile } from "../../interfaces";
 import queryString from "query-string";
 
 export const blogApi = api
   .enhanceEndpoints({ addTagTypes: ["profile"] })
   .injectEndpoints({
     endpoints: (builder) => ({
-      getBlog: builder.query<PostResponseConfig, any>({
+      getBlog: builder.query<ListRes<QuotesWithProfile>, { page: number, limit: number }>({
         query: (payload) => {
           const queryParams = queryString.stringify(payload);
-          return({
+          return ({
             url: `public/get_posts?${queryParams}`,
             method: "GET",
           });
@@ -21,4 +22,4 @@ export const blogApi = api
     overrideExisting: false, // keep other endpoints safe
   });
 
-export const { useLazyGetBlogQuery } = blogApi;
+export const { useLazyGetBlogQuery, useGetBlogQuery } = blogApi;

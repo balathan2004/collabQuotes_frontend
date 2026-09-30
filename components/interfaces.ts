@@ -1,24 +1,27 @@
 
+
 export interface ResponseConfig {
-  status: 200 | 300 | 400;
   message: string;
 }
 
+export type DataRes<T> = ResponseConfig & {
+  data: T;
+};
+
+export type ListRes<T> = ResponseConfig & {
+  data: T[];
+  totalCount?: number;
+};
+
 export interface AuthResponseConfig extends ResponseConfig {
-  credentials: UserDataInterface |null ;
-  accessToken?:string
-  refreshToken?:string;
-}
-export interface QuoteInterface {
-  quote: string;
-  author: string;
-  userId: string;
-  quoteId: string;
-  createdAt: number;
-  username: string;
+  credentials: User;
+  accessToken: string;
+  refreshToken: string;
 }
 
-export interface UserDataInterface {
+
+
+export interface User {
   userId: string;
   username: string;
   email: string;
@@ -26,15 +29,16 @@ export interface UserDataInterface {
   profile_url: string;
 }
 
-export interface QuotesInterfaceWithProfile extends QuoteInterface {
+export interface Quotes {
+  quote: string;
+  author: string;
+  userId: string;
+  quoteId: string
+  createdAt: number;
+  username: string;
+}
+
+export interface QuotesWithProfile extends Quotes {
   profile_url: string;
 }
 
-export interface PostResponseConfig extends ResponseConfig {
-  quotes: QuotesInterfaceWithProfile[];
-}
-
-export interface ProfileResponseCofig extends ResponseConfig {
-  userData: UserDataInterface | null;
-  userPosts: QuoteInterface[] | [];
-}

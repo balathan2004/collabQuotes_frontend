@@ -1,13 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import styles from "@styles/about_profile.module.css";
-import { useAuth } from "@components/redux/apis/authSlice";
+
 export default function About() {
-
-  const {data,isLogin}=useAuth()
-  console.log('data: ', isLogin);
-
-  
-
   return (
     <div className="main_container">
       <div className={styles.container}>

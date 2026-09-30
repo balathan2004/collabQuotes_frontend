@@ -1,7 +1,7 @@
 // api/authApi.ts
-import { register } from "module";
+
 import { api } from "../api";
-import { AuthResponseConfig, ResponseConfig } from "@components/interfaces";
+import { AuthResponseConfig } from "@components/interfaces";
 
 export const authApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -9,20 +9,20 @@ export const authApi = api.injectEndpoints({
       AuthResponseConfig,
       { email: string; password: string }
     >({
-      query: (body) => ({
+      query: (payload) => ({
         url: "auth/login",
         method: "POST",
-        body,
+        body: { data: payload },
       }),
     }),
     register: builder.mutation<
       AuthResponseConfig,
       { email: string; password: string }
     >({
-      query: (body) => ({
+      query: (payload) => ({
         url: "auth/register",
         method: "POST",
-        body,
+        body: { data: payload },
       }),
     }),
     refreshToken: builder.mutation<
@@ -33,11 +33,11 @@ export const authApi = api.injectEndpoints({
         return {
           url: `auth/refresh`,
           method: "POST",
-          body: payload,
+          body: { data: payload },
         };
       },
     }),
-  
+
   }),
   overrideExisting: false, // keep other endpoints safe
 });

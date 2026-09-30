@@ -1,17 +1,10 @@
-import {
-  QuotesInterfaceWithProfile,
-  PostResponseConfig,
-} from "@components/interfaces";
+import { QuotesWithProfile } from "@components/interfaces";
 import { FC, useEffect, useState } from "react";
 import QuoteList from "../elements/list";
 import styles from "@styles/blog.module.css";
 import InfiniteScroll from "react-infinite-scroller";
-import { useLoadingContext } from "@components/context/loading_context";
 import { debounce } from "lodash";
-
-import { CircularProgress } from "@mui/material";
 import { useLazyGetBlogQuery } from "@components/redux/apis/blogApi";
-const url = import.meta.env.VITE_DEST_URL;
 
 function LoadingTextComponent() {
   return (
@@ -23,39 +16,16 @@ function LoadingTextComponent() {
 }
 
 const Blog: FC = () => {
-  const [quotesData, setQuotesData] = useState<QuotesInterfaceWithProfile[]>(
-    []
-  );
-  // const [isLoading, setIsLoading] = useState(false);
+  const [quotesData, setQuotesData] = useState<QuotesWithProfile[]>([]);
+
   const [query, setQuery] = useState({
-    page: 1,
-    limit: 5,
+    page: 0,
+    limit: 10,
   });
 
   const [getBlogs, { isLoading }] = useLazyGetBlogQuery();
 
   const [hasMorePosts, setHasMorePosts] = useState(true);
-
-  const fetchMorePosts = async () => {
-    try {
-      getBlogs(query)
-        .unwrap()
-        .then((res) => {
-          setQuotesData((prev) => {
-            const newQuotes = res.quotes.filter(
-              (quote) =>
-                !prev.some(
-                  (existingQuote) => existingQuote.quoteId === quote.quoteId
-                )
-            );
-
-            return [...prev, ...newQuotes];
-          });
-        });
-    } catch (error) {
-      console.error("Error fetching more posts:", error);
-    }
-  };
 
   const debouncedFunction = debounce(async () => {
     setQuery((prev) => ({
@@ -70,8 +40,21 @@ const Blog: FC = () => {
   };
 
   useEffect(() => {
-    fetchMorePosts();
-  }, [query]);
+    getBlogs(query)
+      .unwrap()
+      .then((res) => {
+        setHasMorePosts((res.totalCount || 0) > query.page * query.limit);
+        setQuotesData((prev) => {
+          const existingIds = new Set(prev.map((quote) => quote.quoteId));
+
+          const newQuotes = res.data.filter(
+            (quote) => !existingIds.has(quote.quoteId),
+          );
+
+          return [...prev, ...newQuotes];
+        });
+      });
+  }, [query.page]);
 
   return (
     <div className="main_container">

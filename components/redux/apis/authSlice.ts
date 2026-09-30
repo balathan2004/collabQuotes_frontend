@@ -1,4 +1,4 @@
-import { UserDataInterface } from "@components/interfaces";
+import { User } from "@components/interfaces";
 import { createSlice } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
@@ -23,7 +23,7 @@ const initialState = {
   refreshToken: "",
   isLogin: false,
   isPageLoading: true,
-  data: {} as UserDataInterface,
+  data: null as User | null,
   navbarState: NavInit,
 };
 
@@ -40,9 +40,9 @@ const authSlice = createSlice({
     },
     logout: (state) => {
       state.accessToken = "";
-      state.data = {} as UserDataInterface;
+      state.data = null;
       state.isLogin = false;
-      localStorage.removeItem("collabQuotes_refreshToken");
+
       state.navbarState = NavInit;
     },
   },
@@ -55,39 +55,39 @@ const authSlice = createSlice({
       authApi.endpoints.refreshToken.matchFulfilled,
       (state, { payload }) => {
         state.accessToken = payload.accessToken || "";
-        state.data = payload.credentials as UserDataInterface;
+        state.data = payload.credentials as User;
         state.isLogin = true;
         state.isPageLoading = false;
         state.navbarState = NavUsers;
         console.log("✅ Login stored in authSlice");
       }
-    ),
-      builder.addMatcher(
-        authApi.endpoints.login.matchFulfilled,
-        (state, { payload }) => {
-          console.log("login payload", payload);
+    );
+    builder.addMatcher(
+      authApi.endpoints.login.matchFulfilled,
+      (state, { payload }) => {
+        console.log("login payload", payload);
 
-          state.accessToken = payload?.accessToken || "";
-          state.data = payload.credentials as UserDataInterface;
-          state.isLogin = true;
-          state.isPageLoading = false;
-          state.navbarState = NavUsers;
-          localStorage.setItem(
-            "collabQuotes_refreshToken",
-            payload?.refreshToken || ""
-          );
-          console.log("✅ Login stored in authSlice");
-        }
-      ),
-      builder.addMatcher(
-        authApi.endpoints.refreshToken.matchRejected,
-        (state) => {
-          state.isPageLoading = false; // ❌ no token
-          state.isLogin = false;
-          state.data = {} as UserDataInterface;
-          state.navbarState = NavInit;
-        }
-      );
+        state.accessToken = payload?.accessToken || "";
+        state.data = payload.credentials as User;
+        state.isLogin = true;
+        state.isPageLoading = false;
+        state.navbarState = NavUsers;
+        localStorage.setItem(
+          "collabQuotes_refreshToken",
+          payload?.refreshToken || ""
+        );
+        console.log("✅ Login stored in authSlice");
+      }
+    );
+    builder.addMatcher(
+      authApi.endpoints.refreshToken.matchRejected,
+      (state) => {
+        state.isPageLoading = false; // ❌ no token
+        state.isLogin = false;
+        state.data = {} as User;
+        state.navbarState = NavInit;
+      }
+    );
   },
 });
 

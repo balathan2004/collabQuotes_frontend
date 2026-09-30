@@ -6,15 +6,6 @@ export const postApi = api
   .enhanceEndpoints({ addTagTypes: ["profile"] })
   .injectEndpoints({
     endpoints: (builder) => ({
-      getBlogPosts: builder.query<
-        ResponseConfig,
-        { page: number; limit: number }
-      >({
-        query: ({ page, limit }) => ({
-          url: `get_posts?page=${page}&limit=${limit}`,
-          method: "GET",
-        }),
-      }),
 
       createPost: builder.mutation<
         ResponseConfig,
@@ -30,23 +21,13 @@ export const postApi = api
 
       deletePost: builder.mutation<ResponseConfig, { postId: string }>({
         query: ({ postId }) => ({
-          url: `posts?quoteId=${postId}`,
+          url: `posts/${postId}`,
           method: "DELETE",
         }),
         invalidatesTags: ["profile"],
       }),
 
-      // editPost: builder.mutation<
-      //   ResponseConfig,
-      //   { userId: string; postId: string }
-      // >({
-      //   query: (payload) => ({
-      //     url: "posts/",
-      //     method: "POST",
-      //     body: payload,
-      //   }),
-      //   invalidatesTags: ["profile"],
-      // }),
+
     }),
     overrideExisting: false, // keep other endpoints safe
   });
